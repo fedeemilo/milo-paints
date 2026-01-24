@@ -1,0 +1,258 @@
+# Reglas del Proyecto Milo Paints
+
+## 🎨 Sobre el Proyecto
+
+Galería de arte online para Milo, un artista plástico. El proyecto permite:
+- Mostrar pinturas al público con sistema de QR codes
+- Panel de administración para gestionar obras (CRUD)
+- Generación automática de códigos QR para cada pintura
+
+### Stack Tecnológico
+- **Framework**: Next.js 15+ (App Router)
+- **Base de datos**: Supabase (PostgreSQL)
+- **Almacenamiento de imágenes**: Cloudinary
+- **Estilos**: Tailwind CSS + Shadcn/ui
+- **Validaciones**: Zod + React Hook Form
+- **Lenguaje**: TypeScript (strict mode)
+
+---
+
+## 📦 Al finalizar cualquier feature o cambio:
+
+### Versionado (Semantic Versioning)
+
+- SIEMPRE actualizar la versión en `package.json` según el tipo de cambio:
+    - **Major (X.0.0)**: Cambios que rompen compatibilidad
+    - **Minor (0.X.0)**: Nuevas features
+    - **Patch (0.0.X)**: Bugfixes y mejoras menores
+
+### CHANGELOG
+
+- Agregar entrada en `CHANGELOG.md` con:
+    - Versión nueva
+    - Fecha (formato: YYYY-MM-DD)
+    - Descripción detallada de los cambios
+    - Tipo de cambio:
+        - ✨ **Nuevo Feature** / **Added**
+        - 🐛 **Corregido** / **Fixed**
+        - 🎨 **Mejorado** / **Changed**
+        - 🗑️ **Removido** / **Removed**
+    - Explicar CAUSA del problema (si es fix)
+    - Mostrar ejemplos de código antes/después cuando sea relevante
+
+---
+
+## 🎨 Estilo de código:
+
+### TypeScript
+
+- Usar TypeScript estricto, bien tipado
+- Evitar `any`, usar tipos específicos
+- Interfaces para props de componentes
+- Types para responses de API y tablas de Supabase (`src/types/database.types.ts`)
+
+### Componentes
+
+- Componentes funcionales con hooks
+- Server Components por defecto (Next.js App Router)
+- Client Components solo cuando sea necesario (`"use client"`)
+- Validaciones con Zod en `src/lib/validations/`
+
+### Nomenclatura
+
+- Variables de negocio: español descriptivo (`pintura`, `precio`, `categoria`)
+- Variables técnicas: inglés (`isLoading`, `error`, `formData`)
+- Comentarios: español
+- Funciones: camelCase descriptivo
+
+### Estructura de carpetas
+
+```
+src/
+├── app/                    # Rutas (App Router)
+│   ├── admin/              # Panel de administración
+│   ├── api/                # API routes
+│   ├── galeria/            # Galería pública
+│   └── qr/[id]/            # Página pública de cada pintura (QR)
+├── components/
+│   ├── admin/              # Componentes del panel admin
+│   ├── gallery/            # Componentes de la galería pública
+│   └── ui/                 # Componentes base (shadcn)
+├── lib/
+│   ├── supabase/           # Clientes Supabase (client, server, admin)
+│   ├── cloudinary/         # Configuración Cloudinary
+│   ├── validations/        # Schemas Zod
+│   └── helpers.ts          # Utilidades (formatPrice, formatDimensions, etc.)
+└── types/                  # Tipos TypeScript
+```
+
+---
+
+## 🔧 Git:
+
+### Commits
+
+- Formato: `tipo: descripción`
+- Tipos permitidos:
+    - `feat`: Nueva feature
+    - `fix`: Bugfix
+    - `docs`: Cambios en documentación
+    - `style`: Cambios de estilo (no afectan lógica)
+    - `refactor`: Refactorización de código
+    - `test`: Tests
+    - `chore`: Tareas de mantenimiento
+
+- Descripción en español
+- Usar multiline para detalles cuando sea necesario
+
+### Ejemplo de buen commit:
+
+```
+feat: agregar estado de venta a pinturas
+
+- Toggle para marcar/desmarcar como vendido
+- Badge "VENDIDO" en página pública
+- Precio tachado cuando está vendido
+```
+
+---
+
+## 🗄️ Base de datos (Supabase):
+
+### Clientes
+
+- `src/lib/supabase/client.ts` - Para componentes client-side
+- `src/lib/supabase/server.ts` - Para server components y API routes
+- `src/lib/supabase/admin.ts` - Para operaciones con service role (scripts)
+
+### Tipos
+
+- Mantener `src/types/database.types.ts` sincronizado con el schema de Supabase
+- Usar el tipo `Painting` para todas las operaciones con pinturas
+
+### RLS (Row Level Security)
+
+- Lectura pública habilitada para `paintings`
+- Escritura requiere autenticación (manejada por cookie de sesión admin)
+
+---
+
+## 🖼️ Cloudinary:
+
+### Carpetas
+
+- `img-paints/` - Imágenes de pinturas
+- `qrs-paints/` - Códigos QR generados
+
+### Transformaciones
+
+- Thumbnails: `c_fill,w_400,h_400,q_auto,f_auto`
+- Imágenes completas: `q_auto,f_auto` (optimización automática)
+
+---
+
+## 🎯 UX/UI:
+
+### Feedback al usuario
+
+- Loading states claros (Loader2 spinner de lucide-react)
+- Mensajes de error descriptivos
+- Confirmación antes de eliminar
+
+### Imágenes
+
+- Usar `object-contain` para respetar proporciones originales de las pinturas
+- NO usar `object-cover` que recorta las obras
+
+### Responsive
+
+- Mobile-first
+- Probar en mobile y desktop
+- Grid adaptativo en galería
+
+### Accesibilidad
+
+- Labels en inputs
+- aria-labels en botones de iconos
+- Alt text descriptivo en imágenes
+
+---
+
+## 🔍 Debugging:
+
+### Console logs
+
+- NO dejar console.logs en producción
+- Usar try/catch con mensajes de error claros
+- Mostrar errores al usuario de forma amigable
+
+---
+
+## ⚠️ Cosas a evitar:
+
+- ❌ No crear archivos de documentación sin que el usuario lo pida
+- ❌ No commitear cambios sin que el usuario lo solicite
+- ❌ No usar `any` en TypeScript
+- ❌ No dejar imports duplicados
+- ❌ No olvidar actualizar versión y CHANGELOG
+- ❌ No usar `object-cover` en imágenes de pinturas (recorta las obras)
+- ❌ No subir credenciales o `.env.local` a git
+
+---
+
+## 🌐 Idioma:
+
+- **Usuario**: Español
+- **Código**: Mixto (variables de negocio en español, técnicas en inglés)
+- **Comentarios**: Español
+- **Commits**: Español
+- **CHANGELOG**: Español
+- **Respuestas del asistente**: Español
+
+---
+
+## 🚀 Deploy:
+
+### Plataforma: Vercel
+
+- Variables de entorno configuradas en Vercel Dashboard
+- Dominio personalizado: configurar en Vercel
+- Preview deployments automáticos por cada PR
+
+### Variables de entorno requeridas:
+
+```
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+NEXT_PUBLIC_APP_URL=
+ADMIN_PASSWORD=
+```
+
+---
+
+## 🔄 Meta-regla: Actualización de .cursorrules
+
+### Cuándo considerar agregar una nueva regla:
+
+#### ✅ Agregar si:
+
+- Se repitió un patrón de solución en múltiples features
+- Se identificó una causa raíz común de bugs
+- Se estableció una convención nueva en el código
+- Hubo lecciones aprendidas que previenen errores futuros
+
+#### ❌ NO agregar si:
+
+- Es específico de un solo caso de uso
+- Ya está cubierto por una regla existente
+- Es demasiado obvio o básico
+
+### Proceso:
+
+1. **Al finalizar cada tarea**: Reflexionar sobre lecciones aprendidas
+2. **Si hay algo valioso**: Proponer actualización del .cursorrules al usuario
+3. **No hacerlo automáticamente**: Siempre consultar antes de modificar

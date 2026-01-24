@@ -1,14 +1,21 @@
+import { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import {
-  Header,
-  Footer,
+  PublicHeader,
+  PublicFooter,
   HeroSection,
   GalleryGrid,
 } from "@/components/gallery";
 
+export const metadata: Metadata = {
+  title: "Galería | Milo Paints",
+  description:
+    "Explorá la colección completa de pinturas originales de Milo. Acuarelas, óleos y más.",
+};
+
 export const revalidate = 60; // Revalidar cada 60 segundos
 
-export default async function HomePage() {
+export default async function PublicGalleryPage() {
   const supabase = await createClient();
 
   // Obtener todas las pinturas ordenadas por fecha de creación
@@ -25,19 +32,19 @@ export default async function HomePage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Header />
+      <PublicHeader />
 
       <main className="flex-1">
-        {/* Hero Section - versión para Milo */}
-        <HeroSection totalPaintings={paintingsList.length} />
+        {/* Hero Section - versión pública */}
+        <HeroSection totalPaintings={paintingsList.length} isPublic />
 
-        {/* Galería - versión para Milo (con acceso a admin) */}
+        {/* Galería - versión pública */}
         <section className="container mx-auto px-4 py-12">
-          <GalleryGrid paintings={paintingsList} />
+          <GalleryGrid paintings={paintingsList} isPublic />
         </section>
       </main>
 
-      <Footer />
+      <PublicFooter />
     </div>
   );
 }

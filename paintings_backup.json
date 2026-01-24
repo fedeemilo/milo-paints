@@ -1,0 +1,338 @@
+[
+    {
+        "_id": "6403fbcb631caebd5b4ff68f",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677982667/lxnwx9ezis3ecykquj8t.jpg",
+        "title": "Paisaje Nevado",
+        "paintingType": "Óleo sobre lienzo",
+        "price": 220,
+        "__v": 0
+    },
+    {
+        "_id": "6403f80a631caebd5b4ff685",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677981706/vseyudngtylvuk8d13fb.jpg",
+        "title": "Bodegon 3",
+        "paintingType": "Óleo sobre lienzo",
+        "price": 300,
+        "__v": 0
+    },
+    {
+        "_id": "6403f6dd631caebd5b4ff681",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677981405/vfxhlm74ojqmhbifyjmn.jpg",
+        "title": "Bodegon Antiguo",
+        "paintingType": "Óleo sobre lienzo",
+        "price": 290,
+        "__v": 0
+    },
+    {
+        "_id": "6403f78f631caebd5b4ff683",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677981583/adtec2s9hqst4uz49wq2.jpg",
+        "title": "Bodegon - La Bodega",
+        "paintingType": "Óleo sobre tabla de lenga 50x1.20",
+        "price": 550,
+        "__v": 0
+    },
+    {
+        "_id": "640405c4631caebd5b4ff6a0",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677985220/o7wxur8aiauouaqppmbq.jpg",
+        "title": "Paisaje 3",
+        "paintingType": "Acuarela",
+        "price": 90,
+        "__v": 0
+    },
+    {
+        "_id": "640406bb631caebd5b4ff6ac",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677985467/m7mbqbxod0xbcfgxupag.jpg",
+        "title": "Playa 1",
+        "paintingType": "Acuarela",
+        "price": 100,
+        "__v": 0
+    },
+    {
+        "_id": "64040572631caebd5b4ff69e",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677985138/yazzdqjx1mxudj6kywb8.jpg",
+        "title": "Paisaje 2",
+        "paintingType": "Acuarela",
+        "price": 110,
+        "__v": 0
+    },
+    {
+        "_id": "64040775631caebd5b4ff6b2",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677985654/fywcfftnyicdgyw2e9vj.jpg",
+        "title": "Vieja Canilla",
+        "paintingType": "Acuarela",
+        "price": 100,
+        "__v": 0
+    },
+    {
+        "_id": "6403fb77631caebd5b4ff68d",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677982583/bwaccsdhfw4rf1ahb4ug.jpg",
+        "title": "Ciervos en Otoño",
+        "paintingType": "Óleo sobre lienzo",
+        "price": 300,
+        "__v": 0
+    },
+    {
+        "_id": "640405ed631caebd5b4ff6a2",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677985261/fygzkjf00x8ow4lhw1je.jpg",
+        "title": "Paisaje 4",
+        "paintingType": "Acuarela",
+        "price": 110,
+        "__v": 0
+    },
+    {
+        "_id": "640406e6631caebd5b4ff6b0",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677985510/hhnqjyu7cqisnojxzk4o.jpg",
+        "title": "Sorpresa",
+        "paintingType": "Acuarela",
+        "price": 100,
+        "__v": 0
+    },
+    {
+        "_id": "6403f8f9631caebd5b4ff687",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677981945/kqsgbpjsh5ivjp1yuukt.jpg",
+        "title": "Bodegon 4",
+        "paintingType": "Óleo sobre lienzo",
+        "price": 250,
+        "__v": 0
+    },
+    {
+        "_id": "640403a5631caebd5b4ff695",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677984677/tb7sgtz3a7mhmdyvxhhx.jpg",
+        "title": "El Muelle",
+        "paintingType": "Acuarela",
+        "price": 80,
+        "__v": 0
+    },
+    {
+        "_id": "6404041b631caebd5b4ff698",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677984795/enluswhb03lozocskfx8.jpg",
+        "title": "Flores Silvestres",
+        "paintingType": "Acuarela",
+        "price": 70,
+        "__v": 0
+    },
+    {
+        "_id": "64040510631caebd5b4ff69a",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677985040/dv6brhnns12sad1mixzb.jpg",
+        "title": "La Siembra",
+        "paintingType": "Acuarela",
+        "price": 100,
+        "__v": 0
+    },
+    {
+        "_id": "6403fa6a631caebd5b4ff68b",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677982314/fb5c6qbmn5ylr9twi9if.jpg",
+        "title": "Bodegon 6",
+        "paintingType": "Óleo sobre lienzo",
+        "price": 300,
+        "__v": 0
+    },
+    {
+        "_id": "6403fd90631caebd5b4ff691",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677983120/sljr4cwnrehfe0n5pqdu.jpg",
+        "title": "Contraluz 1",
+        "paintingType": "Acuarela",
+        "price": 90,
+        "__v": 0
+    },
+    {
+        "_id": "6403f986631caebd5b4ff689",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677982086/yjgj9trit0lpkzlahlrk.jpg",
+        "title": "Bodegon 5",
+        "paintingType": "Óleo sobre lienzo",
+        "price": 250,
+        "__v": 0
+    },
+    {
+        "_id": "640402fd631caebd5b4ff693",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677984509/ibcjhoq1sw4dqk9vd71p.jpg",
+        "title": "EL Campito",
+        "paintingType": "Acuarela",
+        "price": 90,
+        "__v": 0
+    },
+    {
+        "_id": "640406d4631caebd5b4ff6ae",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677985492/quiaegkbnrv5zpqm0msi.jpg",
+        "title": "Rancho 1",
+        "paintingType": "Acuarela",
+        "price": 90,
+        "__v": 0
+    },
+    {
+        "_id": "6404053f631caebd5b4ff69c",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677985087/nr1goayucsxg97naxj5u.jpg",
+        "title": "Lolog",
+        "paintingType": "Acuarela",
+        "price": 100,
+        "__v": 0
+    },
+    {
+        "_id": "6404060c631caebd5b4ff6a4",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677985292/agqz9fptrq1whawwrdwu.jpg",
+        "title": "Paisaje 5",
+        "paintingType": "Acuarela",
+        "price": 110,
+        "__v": 0
+    },
+    {
+        "_id": "640407c4631caebd5b4ff6b6",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677985733/nv01jkkbh21d8yyxlik1.jpg",
+        "title": "Mateando",
+        "paintingType": "Óleo sobre lienzo (90cm x 70cm)",
+        "price": 320,
+        "__v": 0
+    },
+    {
+        "_id": "64040623631caebd5b4ff6a6",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677985315/patevovwtw8kjlcthssm.jpg",
+        "title": "Paisaje 6",
+        "paintingType": "Acuarela",
+        "price": 80,
+        "__v": 0
+    },
+    {
+        "_id": "640407b2631caebd5b4ff6b4",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1677985714/zgxvdbvaczlficccxxze.jpg",
+        "title": "El Parque",
+        "paintingType": "Acuarela",
+        "price": 110,
+        "__v": 0
+    },
+    {
+        "_id": "640524b80154cf28223bd059",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1678058680/q5zfxcmybfb0chzvh8qj.jpg",
+        "title": "Bodegón otoñal",
+        "paintingType": "Acuarela",
+        "price": 250,
+        "__v": 0
+    },
+    {
+        "_id": "65c02a0edb1ad6701534738e",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1707092493/gqepxwh04fd5dl7drss2.jpg",
+        "title": "Dorado",
+        "paintingType": "Óleo sobre lienzo (50cm x 70cm)",
+        "price": 250,
+        "__v": 0
+    },
+    {
+        "_id": "65c02bd6db1ad67015347394",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1707092950/bgaexyrdbgnzigddlurh.jpg",
+        "title": "Sociego",
+        "paintingType": "Óleo sobre lienzo (40cm x 70cm)",
+        "price": 300,
+        "__v": 0
+    },
+    {
+        "_id": "65c03a7b931cb856acf72e6f",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1707096698/ribnrt3bcmny4cqqiaub.jpg",
+        "title": "Camino a las Pendientes",
+        "paintingType": "Óleo sobre tabla entelada (60cm x 60cm)",
+        "price": 290,
+        "__v": 0
+    },
+    {
+        "_id": "65c03ad2931cb856acf72e73",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1707096785/juijr7qqmteyq0z2wvaq.jpg",
+        "title": "El árbol rosa",
+        "paintingType": "Óleo sobre lienzo (50cm x 70cm)",
+        "price": 240,
+        "__v": 0
+    },
+    {
+        "_id": "65c2a08d16d9d99e3a14c854",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1707253901/ec9ugyhmcokpbi2lljof.jpg",
+        "title": "Panes con jarra de barro",
+        "paintingType": "Óleo sobre lienzo Enmarcado (marco de madera y paspartú de tela)",
+        "price": 500,
+        "__v": 0
+    },
+    {
+        "_id": "65c97a2e44d6dd59aa46aab1",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1707702830/bryousafvvoc02cibttu.jpg",
+        "title": "Salvador",
+        "paintingType": "Óleo sobre tabla  (40cm x 30cm)",
+        "price": 200,
+        "__v": 0
+    },
+    {
+        "_id": "65c97bbd44d6dd59aa46aab7",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1707703229/ddfqiixs4aoepqxv18rm.jpg",
+        "title": "Messi el grande",
+        "paintingType": "Óleo sobre lienzo (1.20m x 1m)",
+        "price": 500,
+        "__v": 0
+    },
+    {
+        "_id": "65ebaee0110c9775423b8ac1",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1709944544/qs6fypai3obruqwgcc3h.jpg",
+        "title": "Bodegon 7",
+        "paintingType": "Óleo sobre tabla tratada (37.7cm x 29.5cm)",
+        "price": 250,
+        "__v": 0
+    },
+    {
+        "_id": "65ebaf9595b9977022b4e3f7",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1709944725/jrvhpbjkb2ldt4mvlqmd.jpg",
+        "title": "El Viaje",
+        "paintingType": "óleo sobre lienzo (90cm x 80 cm)",
+        "price": 300,
+        "__v": 0
+    },
+    {
+        "_id": "65ebb09295b9977022b4e3fd",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1709944978/tvb766acrpfzkxbaeael.jpg",
+        "title": "Transparencias 1",
+        "paintingType": "Acuarela sobre papel Canson 300gr (35cm x 25 cm)",
+        "price": 150,
+        "__v": 0
+    },
+    {
+        "_id": "660e0faef7ddbb64d265b385",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1712197549/yrz8hyodarydomi11s6i.jpg",
+        "title": "La Cascada",
+        "paintingType": "Óleo sobre lienzo (60cm x 50cm)",
+        "price": 250,
+        "__v": 0
+    },
+    {
+        "_id": "660e11305a48c7e8300922af",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1712197936/eca9mymnezu8ie3xkq93.jpg",
+        "title": "Quique y el Hueso",
+        "paintingType": "Óleo sobre lienzo (90cm x 80cm)",
+        "price": 700,
+        "__v": 0
+    },
+    {
+        "_id": "660e146783e080524a272333",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1712198759/krwvsiq8gvt1pvk06nhh.jpg",
+        "title": "Flores 5",
+        "paintingType": "Acuarela sobre papel Arches 300gr (23cm x 31cm)",
+        "price": 120,
+        "__v": 0
+    },
+    {
+        "_id": "668d761818ff4fd371c4b47c",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1720546839/amtmvbcpmtijlqe2tnrm.jpg",
+        "title": "La Masa",
+        "paintingType": "Óleo sobre lienzo 70x60",
+        "price": 200,
+        "__v": 0
+    },
+    {
+        "_id": "668d76bd18ff4fd371c4b480",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1720547004/svnemagtvry605vu8ph1.jpg",
+        "title": "Esperando",
+        "paintingType": "Óleo sobre lienzo 70x60",
+        "price": 250,
+        "__v": 0
+    },
+    {
+        "_id": "668d773618ff4fd371c4b484",
+        "src": "https://res.cloudinary.com/fede-milo/image/upload/v1720547126/da7kls5tsj4pcktz4qyg.jpg",
+        "title": "Pescado de Mar",
+        "paintingType": "Óleo sobre lienzo 80x60",
+        "price": 300,
+        "__v": 0
+    }
+]
