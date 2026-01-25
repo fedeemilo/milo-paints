@@ -24,6 +24,9 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
   - Sidebar overlay con backdrop
   - Footer de navegación siempre visible
   - Sin scroll horizontal en ningún dispositivo
+- **Navegación mejorada para admin**:
+  - Imágenes clickeables en tabla del dashboard que llevan a vista pública de la pintura
+  - Botón "Volver" condicional: lleva al dashboard si sos admin, a la galería si sos visitante
 - **Mejoras de tipado**: Resolución de errores TypeScript en API routes
 
 ### 🔧 Fixed

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { isAuthenticated } from "@/lib/auth/session";
 import { formatPrice, formatDimensions } from "@/lib/helpers";
 import { PublicHeader, PublicFooter } from "@/components/gallery";
 import { ArrowLeft, Calendar, Ruler, Tag, Check } from "lucide-react";
@@ -58,6 +59,7 @@ export default async function PaintingQRPage({ params }: PageProps) {
   }
 
   const dimensions = formatDimensions(painting.width, painting.height, painting.depth);
+  const isAdmin = await isAuthenticated();
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
@@ -66,14 +68,26 @@ export default async function PaintingQRPage({ params }: PageProps) {
       <main className="flex-1">
         {/* Contenedor principal */}
         <article className="container mx-auto px-4 py-8 md:py-12">
-          {/* Botón volver a galería */}
-          <Link
-            href="/galeria"
-            className="mb-6 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Ver más obras
-          </Link>
+          {/* Botón de navegación condicional */}
+          <div className="mb-6">
+            {isAdmin ? (
+              <Link
+                href="/admin/paintings"
+                className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Volver
+              </Link>
+            ) : (
+              <Link
+                href="/galeria"
+                className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Ver más obras
+              </Link>
+            )}
+          </div>
 
           <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-start">
             {/* Imagen */}

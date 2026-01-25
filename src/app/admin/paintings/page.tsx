@@ -66,14 +66,18 @@ export default async function AdminPaintingsPage() {
               {paintings.map((painting) => (
                 <tr key={painting.id} className="bg-card hover:bg-muted/30">
                   <td className="px-4 py-3">
-                    <div className="h-12 w-12 overflow-hidden rounded bg-muted">
+                    <Link
+                      href={`/qr/${painting.id}`}
+                      className="block h-12 w-12 overflow-hidden rounded bg-muted transition-transform hover:scale-110"
+                      title="Ver pintura"
+                    >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={painting.thumbnail_url || painting.image_url}
                         alt={painting.name}
-                        className="h-full w-full object-cover"
+                        className="h-full w-full cursor-pointer object-cover"
                       />
-                    </div>
+                    </Link>
                   </td>
                   <td className="px-4 py-3">
                     <p className="font-medium text-foreground">{painting.name}</p>
