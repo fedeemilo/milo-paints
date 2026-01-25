@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { isAuthenticated } from "@/lib/auth/session";
 import { formatPrice, formatDimensions } from "@/lib/helpers";
 import { PublicHeader, PublicFooter } from "@/components/gallery";
-import { ArrowLeft, Calendar, Ruler, Tag, Check } from "lucide-react";
+import { ArrowLeft, Calendar, Ruler, Tag } from "lucide-react";
 import type { Painting } from "@/types/database.types";
 
 interface PageProps {
@@ -101,11 +101,13 @@ export default async function PaintingQRPage({ params }: PageProps) {
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="h-auto w-full"
               />
-              {/* Banner diagonal de vendido */}
+              {/* Banner diagonal de vendido mejorado */}
               {painting.sold && (
-                <div className="absolute right-0 top-0 h-32 w-32 overflow-hidden">
-                  <div className="absolute right-[-50px] top-[20px] w-[200px] rotate-45 bg-amber-500 py-2 text-center text-xs font-bold uppercase tracking-wider text-white shadow-lg">
-                    Vendido
+                <div className="absolute right-0 top-0 h-36 w-36 overflow-hidden">
+                  <div className="absolute right-[-55px] top-[25px] w-[220px] rotate-45 bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 py-3 text-center shadow-[0_6px_20px_rgba(0,0,0,0.5)]">
+                    <span className="block text-sm font-black uppercase tracking-[0.2em] text-white drop-shadow-lg">
+                      Vendido
+                    </span>
                   </div>
                 </div>
               )}
@@ -113,18 +115,12 @@ export default async function PaintingQRPage({ params }: PageProps) {
 
             {/* Información */}
             <div className="flex flex-col justify-center">
-              {/* Badges: Categoría y Vendido */}
+              {/* Badge: Categoría */}
               <div className="mb-3 flex flex-wrap items-center gap-2">
                 {painting.category && (
                   <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
                     <Tag className="h-3 w-3" />
                     {painting.category}
-                  </span>
-                )}
-                {painting.sold && (
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-800">
-                    <Check className="h-3 w-3" />
-                    VENDIDO
                   </span>
                 )}
               </div>
@@ -134,10 +130,12 @@ export default async function PaintingQRPage({ params }: PageProps) {
                 {painting.name}
               </h1>
 
-              {/* Precio */}
-              <p className={`mt-4 text-2xl font-semibold md:text-3xl ${painting.sold ? "text-muted-foreground line-through" : "text-primary"}`}>
-                {formatPrice(painting.price)}
-              </p>
+              {/* Precio - solo si no está vendida */}
+              {!painting.sold && (
+                <p className="mt-4 text-2xl font-semibold text-primary md:text-3xl">
+                  {formatPrice(painting.price)}
+                </p>
+              )}
 
               {/* Detalles */}
               <div className="mt-6 space-y-3">

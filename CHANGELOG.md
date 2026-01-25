@@ -17,25 +17,29 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
   - Metadata organizada: nombre, precio, categoría
   - Botones de acción (Editar, QR, Eliminar) bien visibles en cada card
   - Responsive: 1 col mobile, 2 tablet, 3 laptop, 4 desktop
-- **Paginación mejorada**: 12 pinturas por página (antes 10)
+- **Paginación mejorada**: 12 pinturas por página (ajustado de 10)
   - Mantiene el modo de vista seleccionado al cambiar de página
   - Contador de registros mostrados
 - **Estado visual mejorado en badges**:
   - Badge "DISPONIBLE" verde con ícono de carrito para pinturas disponibles
-  - Badge "VENDIDO" amarillo con check para pinturas vendidas
-  - Ambos badges son clickeables para cambiar estado rápidamente
-- **Banner diagonal "Vendido"**: Indicador visual prominente sobre las imágenes
+  - Badge "VENDIDO" removido - reemplazado por banner diagonal exclusivo
+- **Banner diagonal "Vendido" premium**: Indicador visual elegante y prominente
   - Se muestra en esquina superior derecha cuando la obra está vendida
   - Visible en galería pública y páginas de detalle QR
-  - Color amarillo/amber con texto blanco en diagonal
-  - Complementa el badge redondo para mayor visibilidad
+  - Gradiente amber con sombras profundas y tipografía bold
+  - Reemplaza completamente al badge redondo para mayor impacto visual
+- **Precio oculto en obras vendidas**: Mayor claridad y profesionalismo
+  - El precio no se muestra cuando una pintura está vendida
+  - Aplica en galería pública y página de detalle
+  - Elimina confusión sobre disponibilidad
 
 ### 🎨 UI/UX
 
 - Hover effects en cards de grilla con scale en imagen
 - Transiciones suaves entre estados
 - Mejor accesibilidad con títulos descriptivos en botones
-- Indicador visual claro y llamativo del estado de venta
+- Indicador visual claro del estado de venta sin información redundante
+- Diseño más limpio y enfocado en obras disponibles
 
 ---
 

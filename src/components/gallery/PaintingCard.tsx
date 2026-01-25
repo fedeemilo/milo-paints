@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { Check } from "lucide-react";
 import type { Painting } from "@/types/database.types";
 import { formatPrice } from "@/lib/helpers";
 import { cn } from "@/lib/utils";
@@ -63,19 +62,13 @@ export function PaintingCard({ painting }: PaintingCardProps) {
             </span>
           )}
 
-          {/* Badge de VENDIDO - prominente */}
+          {/* Banner diagonal de vendido mejorado */}
           {painting.sold && (
-            <div className="absolute right-3 top-3 flex items-center gap-1.5 rounded-full bg-amber-100 px-2.5 py-1 text-xs font-bold text-amber-800 shadow-md backdrop-blur-sm">
-              <Check className="h-3 w-3" />
-              VENDIDO
-            </div>
-          )}
-
-          {/* Banner diagonal de vendido */}
-          {painting.sold && (
-            <div className="absolute right-0 top-0 h-24 w-24 overflow-hidden">
-              <div className="absolute right-[-35px] top-[15px] w-[150px] rotate-45 bg-amber-500 py-1.5 text-center text-[10px] font-bold uppercase tracking-wider text-white shadow-lg">
-                Vendido
+            <div className="absolute right-0 top-0 h-28 w-28 overflow-hidden">
+              <div className="absolute right-[-38px] top-[18px] w-[160px] rotate-45 bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 py-2 text-center shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
+                <span className="block text-[11px] font-black uppercase tracking-[0.15em] text-white drop-shadow-md">
+                  Vendido
+                </span>
               </div>
             </div>
           )}
@@ -88,15 +81,17 @@ export function PaintingCard({ painting }: PaintingCardProps) {
           </h3>
 
           <div className="mt-2 flex items-center justify-between">
-            <span className={cn(
-              "text-sm font-medium",
-              painting.sold ? "text-muted-foreground line-through" : "text-primary"
-            )}>
-              {formatPrice(painting.price)}
-            </span>
+            {!painting.sold && (
+              <span className="text-sm font-medium text-primary">
+                {formatPrice(painting.price)}
+              </span>
+            )}
 
             {painting.year && (
-              <span className="text-xs text-muted-foreground">
+              <span className={cn(
+                "text-xs text-muted-foreground",
+                painting.sold && "ml-auto"
+              )}>
                 {painting.year}
               </span>
             )}
