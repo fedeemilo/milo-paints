@@ -9,6 +9,7 @@ import {
   LogOut,
   Palette,
   Home,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -30,7 +31,12 @@ const navItems = [
   },
 ];
 
-export function AdminSidebar() {
+interface AdminSidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -40,16 +46,37 @@ export function AdminSidebar() {
     router.refresh();
   };
 
+  const handleLinkClick = () => {
+    // Cerrar sidebar en mobile al hacer click en un link
+    onClose();
+  };
+
   return (
-    <aside className="fixed left-0 top-0 z-40 flex h-screen w-64 flex-col border-r border-border bg-card">
+    <aside
+      className={cn(
+        "fixed left-0 top-0 z-40 flex h-[100dvh] w-64 max-w-full flex-col border-r border-border bg-card transition-transform duration-300 ease-in-out lg:translate-x-0",
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      )}
+    >
       {/* Logo */}
-      <div className="flex h-16 items-center gap-2 border-b border-border px-6">
-        <Palette className="h-6 w-6 text-primary" />
-        <span className="font-serif text-lg font-semibold">Milo Paints</span>
+      <div className="flex h-14 flex-shrink-0 items-center justify-between border-b border-border px-4">
+        <Link href="/admin" onClick={handleLinkClick} className="flex items-center gap-2">
+          <Palette className="h-5 w-5 text-primary" />
+          <span className="font-serif text-base font-semibold">Milo Paints</span>
+        </Link>
+        
+        {/* Close button - solo visible en mobile */}
+        <button
+          onClick={onClose}
+          className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground lg:hidden"
+          aria-label="Close menu"
+        >
+          <X className="h-5 w-5" />
+        </button>
       </div>
 
-      {/* Navegación */}
-      <nav className="flex-1 space-y-1 p-4">
+      {/* Navegación - crece pero permite scroll si es necesario */}
+      <nav className="flex-1 space-y-1 overflow-y-auto p-3">
         {navItems.map((item) => {
           const isActive =
             item.href === "/admin"
@@ -60,34 +87,36 @@ export function AdminSidebar() {
             <Link
               key={item.href}
               href={item.href}
+              onClick={handleLinkClick}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
                 isActive
                   ? "bg-primary text-primary-foreground"
                   : "text-muted-foreground hover:bg-muted hover:text-foreground"
               )}
             >
-              <item.icon className="h-4 w-4" />
+              <item.icon className="h-4 w-4 flex-shrink-0" />
               {item.label}
             </Link>
           );
         })}
       </nav>
 
-      {/* Footer del sidebar */}
-      <div className="border-t border-border p-4 space-y-1">
+      {/* Footer del sidebar - siempre visible al fondo */}
+      <div className="flex-shrink-0 space-y-1 border-t border-border bg-card p-3">
         <Link
           href="/"
-          className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          onClick={handleLinkClick}
+          className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
         >
-          <Home className="h-4 w-4" />
+          <Home className="h-4 w-4 flex-shrink-0" />
           Ver Galería
         </Link>
         <button
           onClick={handleLogout}
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
         >
-          <LogOut className="h-4 w-4" />
+          <LogOut className="h-4 w-4 flex-shrink-0" />
           Cerrar Sesión
         </button>
       </div>

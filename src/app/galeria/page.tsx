@@ -39,7 +39,7 @@ export default async function PublicGalleryPage() {
         <HeroSection totalPaintings={paintingsList.length} isPublic />
 
         {/* Galería - versión pública */}
-        <section className="container mx-auto px-4 py-12">
+        <section className="container mx-auto px-4 py-8 sm:py-10 md:py-12">
           <GalleryGrid paintings={paintingsList} isPublic />
         </section>
       </main>

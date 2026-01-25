@@ -7,6 +7,39 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [0.2.0] - 2026-01-25
+
+### ✨ Added
+
+- **Estado de vendido mejorado**: Implementación completa del sistema de pinturas vendidas
+  - Badge "VENDIDO" visible en galería pública y páginas de detalle
+  - Toggle en admin dashboard para marcar/desmarcar como vendido
+  - Precio tachado y en gris para obras vendidas
+  - Columnas `sold` y `sold_at` en base de datos
+- **Botón de acceso al dashboard**: Header público muestra botón para ir al admin cuando estás logueado
+  - Detección server-side de sesión activa
+  - Acceso rápido al panel desde cualquier página pública
+- **Responsive admin dashboard**: Panel de administración optimizado para mobile
+  - Hamburger menu en mobile
+  - Sidebar overlay con backdrop
+  - Footer de navegación siempre visible
+  - Sin scroll horizontal en ningún dispositivo
+- **Mejoras de tipado**: Resolución de errores TypeScript en API routes
+
+### 🔧 Fixed
+
+- Corrección de overflow horizontal en admin y páginas públicas
+- Mejora en la inferencia de tipos de Supabase
+- Ajustes de padding y márgenes para mejor visualización en mobile
+
+### 📝 Technical
+
+- SQL migration para agregar campos `sold` y `sold_at`
+- Componente `PublicHeader` convertido a Server Component
+- Mejoras en el layout responsive del admin
+
+---
+
 ## [0.1.0] - 2026-01-24
 
 ### ✨ Added

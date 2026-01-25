@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { Check } from "lucide-react";
 import type { Painting } from "@/types/database.types";
 import { formatPrice } from "@/lib/helpers";
 import { cn } from "@/lib/utils";
@@ -55,11 +56,19 @@ export function PaintingCard({ painting }: PaintingCardProps) {
             )}
           />
 
-          {/* Categoría badge */}
+          {/* Badge de categoría */}
           {painting.category && (
             <span className="absolute left-3 top-3 rounded-full bg-background/90 px-2.5 py-1 text-xs font-medium text-foreground backdrop-blur-sm">
               {painting.category}
             </span>
+          )}
+
+          {/* Badge de VENDIDO - prominente */}
+          {painting.sold && (
+            <div className="absolute right-3 top-3 flex items-center gap-1.5 rounded-full bg-amber-100 px-2.5 py-1 text-xs font-bold text-amber-800 shadow-md backdrop-blur-sm">
+              <Check className="h-3 w-3" />
+              VENDIDO
+            </div>
           )}
         </div>
 
@@ -70,7 +79,10 @@ export function PaintingCard({ painting }: PaintingCardProps) {
           </h3>
 
           <div className="mt-2 flex items-center justify-between">
-            <span className="text-sm font-medium text-primary">
+            <span className={cn(
+              "text-sm font-medium",
+              painting.sold ? "text-muted-foreground line-through" : "text-primary"
+            )}>
               {formatPrice(painting.price)}
             </span>
 
