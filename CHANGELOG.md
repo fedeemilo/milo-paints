@@ -7,6 +7,38 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [0.3.0] - 2026-01-25
+
+### ✨ Added
+
+- **Vista dual en admin dashboard**: Toggle para cambiar entre vista tabla y vista grilla
+  - Vista tabla: compacta y tradicional para gestión rápida
+  - Vista grilla: visual con cards que muestran imágenes grandes con object-cover
+  - Metadata organizada: nombre, precio, categoría
+  - Botones de acción (Editar, QR, Eliminar) bien visibles en cada card
+  - Responsive: 1 col mobile, 2 tablet, 3 laptop, 4 desktop
+- **Paginación mejorada**: 12 pinturas por página (antes 10)
+  - Mantiene el modo de vista seleccionado al cambiar de página
+  - Contador de registros mostrados
+- **Estado visual mejorado en badges**:
+  - Badge "DISPONIBLE" verde con ícono de carrito para pinturas disponibles
+  - Badge "VENDIDO" amarillo con check para pinturas vendidas
+  - Ambos badges son clickeables para cambiar estado rápidamente
+- **Banner diagonal "Vendido"**: Indicador visual prominente sobre las imágenes
+  - Se muestra en esquina superior derecha cuando la obra está vendida
+  - Visible en galería pública y páginas de detalle QR
+  - Color amarillo/amber con texto blanco en diagonal
+  - Complementa el badge redondo para mayor visibilidad
+
+### 🎨 UI/UX
+
+- Hover effects en cards de grilla con scale en imagen
+- Transiciones suaves entre estados
+- Mejor accesibilidad con títulos descriptivos en botones
+- Indicador visual claro y llamativo del estado de venta
+
+---
+
 ## [0.2.0] - 2026-01-25
 
 ### ✨ Added
@@ -27,6 +59,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 - **Navegación mejorada para admin**:
   - Imágenes clickeables en tabla del dashboard que llevan a vista pública de la pintura
   - Botón "Volver" condicional: lleva al dashboard si sos admin, a la galería si sos visitante
+- **Paginación en tabla de pinturas**: 20 pinturas por página con navegación anterior/siguiente
 - **Mejoras de tipado**: Resolución de errores TypeScript en API routes
 
 ### 🔧 Fixed

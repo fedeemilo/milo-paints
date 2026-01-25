@@ -70,6 +70,15 @@ export function PaintingCard({ painting }: PaintingCardProps) {
               VENDIDO
             </div>
           )}
+
+          {/* Banner diagonal de vendido */}
+          {painting.sold && (
+            <div className="absolute right-0 top-0 h-24 w-24 overflow-hidden">
+              <div className="absolute right-[-35px] top-[15px] w-[150px] rotate-45 bg-amber-500 py-1.5 text-center text-[10px] font-bold uppercase tracking-wider text-white shadow-lg">
+                Vendido
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Info */}

@@ -91,7 +91,7 @@ export default async function PaintingQRPage({ params }: PageProps) {
 
           <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 items-start">
             {/* Imagen */}
-            <div className="overflow-hidden rounded-lg bg-muted shadow-lg">
+            <div className="relative overflow-hidden rounded-lg bg-muted shadow-lg">
               <Image
                 src={painting.image_url}
                 alt={painting.name}
@@ -101,6 +101,14 @@ export default async function PaintingQRPage({ params }: PageProps) {
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="h-auto w-full"
               />
+              {/* Banner diagonal de vendido */}
+              {painting.sold && (
+                <div className="absolute right-0 top-0 h-32 w-32 overflow-hidden">
+                  <div className="absolute right-[-50px] top-[20px] w-[200px] rotate-45 bg-amber-500 py-2 text-center text-xs font-bold uppercase tracking-wider text-white shadow-lg">
+                    Vendido
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Información */}

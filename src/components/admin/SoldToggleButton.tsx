@@ -54,14 +54,15 @@ export function SoldToggleButton({ paintingId, isSold }: SoldToggleButtonProps) 
     <button
       onClick={handleToggle}
       disabled={isLoading}
-      className="rounded p-1.5 text-muted-foreground transition-colors hover:bg-amber-100 hover:text-amber-700 disabled:opacity-50"
-      title="Marcar como vendido"
+      className="inline-flex items-center gap-1.5 rounded-full bg-green-100 px-2.5 py-1 text-xs font-medium text-green-800 transition-colors hover:bg-green-200 disabled:opacity-50"
+      title="Click para marcar como vendido"
     >
       {isLoading ? (
-        <Loader2 className="h-4 w-4 animate-spin" />
+        <Loader2 className="h-3 w-3 animate-spin" />
       ) : (
-        <ShoppingCart className="h-4 w-4" />
+        <ShoppingCart className="h-3 w-3" />
       )}
+      DISPONIBLE
     </button>
   );
 }
