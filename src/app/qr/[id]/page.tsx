@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { isAuthenticated } from "@/lib/auth/session";
 import { formatPrice, formatDimensions } from "@/lib/helpers";
 import { PublicHeader, PublicFooter } from "@/components/gallery";
-import { ArrowLeft, Calendar, Ruler, Tag } from "lucide-react";
+import { ArrowLeft, Calendar, Ruler, Tag, Mail } from "lucide-react";
 import type { Painting } from "@/types/database.types";
 
 interface PageProps {
@@ -104,7 +104,7 @@ export default async function PaintingQRPage({ params }: PageProps) {
               {/* Banner diagonal de vendido mejorado */}
               {painting.sold && (
                 <div className="absolute right-0 top-0 h-36 w-36 overflow-hidden">
-                  <div className="absolute right-[-55px] top-[25px] w-[220px] rotate-45 bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 py-3 text-center shadow-[0_6px_20px_rgba(0,0,0,0.5)]">
+                  <div className="absolute right-[-55px] top-[25px] w-[220px] rotate-45 bg-linear-to-r from-amber-600 via-amber-500 to-amber-600 py-3 text-center shadow-[0_6px_20px_rgba(0,0,0,0.5)]">
                     <span className="block text-sm font-black uppercase tracking-[0.2em] text-white drop-shadow-lg">
                       Vendido
                     </span>
@@ -169,8 +169,28 @@ export default async function PaintingQRPage({ params }: PageProps) {
               {/* Separador decorativo */}
               <div className="my-8 h-px bg-linear-to-r from-transparent via-border to-transparent" />
 
+              {/* Sección de contacto para compra - solo si no está vendida */}
+              {!painting.sold && (
+                <div className="rounded-lg border border-primary/20 bg-primary/5 p-6">
+                  <h2 className="mb-3 font-serif text-lg font-semibold text-foreground">
+                    ¿Te interesa adquirir esta obra?
+                  </h2>
+                  <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
+                    Para consultas sobre disponibilidad, métodos de pago, envío o cualquier otra pregunta, 
+                    contactate directamente con el artista.
+                  </p>
+                  <a
+                    href="mailto:guillemilo@gmail.com?subject=Consulta sobre: ${painting.name}"
+                    className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                  >
+                    <Mail className="h-4 w-4" />
+                    guillemilo@gmail.com
+                  </a>
+                </div>
+              )}
+
               {/* CTA - Ver más obras */}
-              <div className="space-y-4">
+              <div className="mt-6 space-y-4">
                 {painting.sold ? (
                   <p className="text-sm text-muted-foreground">
                     Esta obra ya fue vendida. ¡Explorá otras obras disponibles!

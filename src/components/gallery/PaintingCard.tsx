@@ -28,7 +28,7 @@ export function PaintingCard({ painting }: PaintingCardProps) {
           {/* Placeholder mientras carga */}
           <div
             className={cn(
-              "absolute inset-0 bg-gradient-to-br from-muted to-muted-foreground/10 transition-opacity duration-500",
+              "absolute inset-0 bg-linear-to-br from-muted to-muted-foreground/10 transition-opacity duration-500",
               isLoaded ? "opacity-0" : "opacity-100"
             )}
           />
@@ -50,7 +50,7 @@ export function PaintingCard({ painting }: PaintingCardProps) {
           {/* Overlay sutil en hover */}
           <div
             className={cn(
-              "absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent transition-opacity duration-300",
+              "absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent transition-opacity duration-300",
               isHovered ? "opacity-100" : "opacity-0"
             )}
           />
@@ -65,7 +65,7 @@ export function PaintingCard({ painting }: PaintingCardProps) {
           {/* Banner diagonal de vendido mejorado */}
           {painting.sold && (
             <div className="absolute right-0 top-0 h-28 w-28 overflow-hidden">
-              <div className="absolute right-[-38px] top-[18px] w-[160px] rotate-45 bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 py-2 text-center shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
+              <div className="absolute right-[-38px] top-[18px] w-[160px] rotate-45 bg-linear-to-r from-amber-600 via-amber-500 to-amber-600 py-2 text-center shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
                 <span className="block text-[11px] font-black uppercase tracking-[0.15em] text-white drop-shadow-md">
                   Vendido
                 </span>

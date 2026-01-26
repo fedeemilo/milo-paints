@@ -7,6 +7,67 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [0.4.1] - 2026-01-26
+
+### ✨ Added
+
+- **Información de contacto para compra**: Sección de contacto en página de detalle de obra
+  - Box destacado con email del artista (guillemilo@gmail.com)
+  - Botón de email con subject pre-llenado con el nombre de la obra
+  - Solo visible en obras disponibles (no vendidas)
+  - Diseño elegante con fondo sutil y borde de acento
+  - Call-to-action claro para consultas sobre compra, envío y métodos de pago
+
+### 🐛 Fixed
+
+- Corrección de clase CSS `bg-gradient-to-r` a `bg-linear-to-r` (Tailwind v4)
+  - Aplicado en banner diagonal de "Vendido"
+  - En componente `PaintingCard` y página de detalle QR
+
+### 🎨 UI/UX
+
+- Mejor flujo de compra: usuarios ahora saben cómo contactar al artista
+- Información de contacto visible y accesible sin interrumpir la experiencia visual
+
+---
+
+## [0.4.0] - 2026-01-26
+
+### ✨ Added
+
+- **Progressive Web App (PWA)**: La aplicación ahora puede instalarse como app nativa
+  - Configuración completa de manifest (`/public/site.webmanifest`)
+  - Service Worker implementado con estrategia "Network First, fallback a Cache"
+  - Iconos optimizados para Android (192x192, 512x512) y iOS (180x180 apple-touch-icon)
+  - Meta tags para compatibilidad con iOS y Android
+  - Soporte para instalación desde navegador (Chrome, Edge, Safari)
+  - Funcionalidad offline básica (cachea páginas principales)
+- **Iconos completos para PWA**:
+  - `favicon.ico`, `favicon.svg`, `favicon-96x96.png` - Navegadores
+  - `apple-touch-icon.png` - iOS Safari
+  - `web-app-manifest-192x192.png` y `web-app-manifest-512x512.png` - Android
+- **Documentación PWA**: Guía completa en `/docs/PWA.md` con:
+  - Instrucciones de instalación para Android, iOS y Desktop
+  - Explicación de archivos y configuración
+  - Cómo testear la PWA localmente
+  - Guía de Lighthouse para verificar estándares
+
+### 🔧 Technical
+
+- Componente `PWARegister` para registro automático del Service Worker en producción
+- Headers HTTP configurados en `next.config.ts` para Service Worker y manifest
+- Metadata extendida en layout con iconos y configuración Apple Web App
+- Service Worker con caché inteligente y limpieza automática de versiones antiguas
+
+### 🎨 UI/UX
+
+- Color de tema unificado (#3e3434) para barra de estado en mobile
+- Experiencia de app nativa con modo "standalone" (sin barra de navegador)
+- Orientación portrait por defecto en dispositivos móviles
+- Splash screens automáticos generados por el SO
+
+---
+
 ## [0.3.0] - 2026-01-25
 
 ### ✨ Added
