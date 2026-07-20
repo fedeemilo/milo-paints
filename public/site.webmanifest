@@ -2,7 +2,7 @@
   "name": "Milo Paints | Galería de Arte",
   "short_name": "MiloPaints",
   "description": "Galería de pinturas y obras de arte. Acuarelas, óleos y más.",
-  "start_url": "/",
+  "start_url": "/galeria",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",

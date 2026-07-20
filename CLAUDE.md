@@ -111,7 +111,7 @@ En Atlas: usuario app con **solo** `readWrite` sobre DB `milo-paints`. Network A
 
 ### Editar / borrar
 - Edit: opcional reemplazo de imagen (borrar public_id anterior en Cloudinary).
-- Delete: borrar doc Mongo + imagen Cloudinary. **Hoy no borra el asset del QR** (deuda conocida).
+- Delete: borrar doc Mongo + imagen Cloudinary + QR Cloudinary (`milo-paints/qrs-paints/qr-{id}`).
 
 ### Vendido
 - Toggle `sold` + `sold_at` (Date o null). UI: banner “VENDIDO”; en detalle público se oculta precio/CTA de compra.
@@ -152,9 +152,9 @@ Priorizado; no implementar todo de golpe sin acuerdo:
 3. ~~Fix mailto en página QR (`encodeURIComponent` + template).~~ ✅ 0.5.2
 
 ### P1 — Datos / PWA
-4. Índice único Mongo `{ id: 1 }` e índice `{ created_at: -1 }`.
-5. PWA: `start_url` → `/galeria`; no cachear `/api/*` en el service worker.
-6. Al borrar pintura, destruir también el QR en Cloudinary.
+4. ~~Índice único Mongo `{ id: 1 }` e índice `{ created_at: -1 }`.~~ ✅ 0.5.3
+5. ~~PWA: `start_url` → `/galeria`; no cachear `/api/*` en el service worker.~~ ✅ 0.5.3
+6. ~~Al borrar pintura, destruir también el QR en Cloudinary.~~ ✅ 0.5.3
 
 ### P2 — UX / higiene
 7. Admin thumbs: `object-contain` en lugar de `object-cover`.

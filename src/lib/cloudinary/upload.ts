@@ -58,10 +58,25 @@ export async function uploadQRCode(
 }
 
 /**
+ * Public ID del QR en Cloudinary para una pintura.
+ * Debe coincidir con uploadQRCode (folder + public_id).
+ */
+export function getQRPublicId(paintingId: string): string {
+  return `${CLOUDINARY_FOLDERS.QR_CODES}/qr-${paintingId}`;
+}
+
+/**
  * Elimina una imagen de Cloudinary
  */
 export async function deleteImage(publicId: string): Promise<void> {
   await cloudinary.uploader.destroy(publicId);
+}
+
+/**
+ * Elimina el QR asociado a una pintura (si existe).
+ */
+export async function deleteQRCode(paintingId: string): Promise<void> {
+  await deleteImage(getQRPublicId(paintingId));
 }
 
 /**

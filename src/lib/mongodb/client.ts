@@ -42,5 +42,28 @@ export async function getPaintingsCollection(): Promise<
   Collection<PaintingDocument>
 > {
   const db = await getDb();
-  return db.collection<PaintingDocument>("paintings");
+  const collection = db.collection<PaintingDocument>("paintings");
+  await ensurePaintingsIndexes(collection);
+  return collection;
+}
+
+let indexesReady: Promise<void> | undefined;
+
+/** Índices: id único (UUID público) + created_at para listados ordenados. */
+async function ensurePaintingsIndexes(
+  collection: Collection<PaintingDocument>
+): Promise<void> {
+  if (!indexesReady) {
+    indexesReady = (async () => {
+      await collection.createIndexes([
+        { key: { id: 1 }, unique: true, name: "paintings_id_unique" },
+        { key: { created_at: -1 }, name: "paintings_created_at_desc" },
+      ]);
+    })().catch((error) => {
+      // Permitir reintento en el próximo request si falló
+      indexesReady = undefined;
+      throw error;
+    });
+  }
+  await indexesReady;
 }

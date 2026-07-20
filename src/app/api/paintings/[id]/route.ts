@@ -3,6 +3,7 @@ import {
   uploadPaintingImage,
   getThumbnailUrl,
   deleteImage,
+  deleteQRCode,
 } from "@/lib/cloudinary/upload";
 import { updatePaintingSchema } from "@/lib/validations/painting";
 import { slugify } from "@/lib/helpers";
@@ -146,6 +147,9 @@ export async function DELETE(_request: NextRequest, { params }: RouteParams) {
   if (painting.cloudinary_public_id) {
     await deleteImage(painting.cloudinary_public_id).catch(console.error);
   }
+
+  // Borrar también el QR en Cloudinary (si existía)
+  await deleteQRCode(id).catch(console.error);
 
   return NextResponse.json({ success: true });
 }

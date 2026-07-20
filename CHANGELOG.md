@@ -7,6 +7,20 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [0.5.3] - 2026-07-20
+
+### ✨ Added / Improved
+
+- **Índices MongoDB** en colección `paintings`:
+  - único en `id` (UUID público)
+  - `created_at` descendente (listados/paginación)
+  - Se aseguran al conectar (`ensurePaintingsIndexes`)
+- **PWA**: `start_url` apunta a `/galeria` (evita redirect de `/` sin sesión)
+- **Service Worker v2**: no cachea `/api/*` ni métodos no-GET; precache solo `/galeria`
+- **Delete completo**: al borrar una obra también se elimina el QR en Cloudinary (`qrs-paints/qr-{id}`)
+
+---
+
 ## [0.5.2] - 2026-07-20
 
 ### 🐛 Fixed / Security

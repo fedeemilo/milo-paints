@@ -1,53 +1,59 @@
-// Service Worker básico para PWA
-const CACHE_NAME = 'milo-paints-v1';
-const urlsToCache = [
-  '/',
-  '/galeria',
-];
+// Service Worker — Network First, fallback a Cache (solo assets/páginas públicas)
+const CACHE_NAME = "milo-paints-v2";
+const PRECACHE_URLS = ["/galeria"];
 
-// Instalación del Service Worker
-self.addEventListener('install', (event) => {
+self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        return cache.addAll(urlsToCache);
-      })
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS))
   );
+  self.skipWaiting();
 });
 
-// Activación y limpieza de cachés antiguos
-self.addEventListener('activate', (event) => {
+self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
+    caches.keys().then((cacheNames) =>
+      Promise.all(
+        cacheNames
+          .filter((name) => name !== CACHE_NAME)
+          .map((name) => caches.delete(name))
+      )
+    )
   );
+  self.clients.claim();
 });
 
-// Estrategia: Network First, fallback a Cache
-self.addEventListener('fetch', (event) => {
+function shouldBypassCache(request) {
+  const url = new URL(request.url);
+
+  // Nunca cachear APIs ni métodos que no sean GET
+  if (request.method !== "GET") return true;
+  if (url.pathname.startsWith("/api/")) return true;
+
+  // Solo same-origin
+  if (url.origin !== self.location.origin) return true;
+
+  return false;
+}
+
+self.addEventListener("fetch", (event) => {
+  const { request } = event;
+
+  if (shouldBypassCache(request)) {
+    event.respondWith(fetch(request));
+    return;
+  }
+
   event.respondWith(
-    fetch(event.request)
+    fetch(request)
       .then((response) => {
-        // Si la respuesta es válida, clonarla y guardarla en caché
-        if (response && response.status === 200) {
+        if (response && response.status === 200 && response.type === "basic") {
           const responseToCache = response.clone();
-          caches.open(CACHE_NAME)
-            .then((cache) => {
-              cache.put(event.request, responseToCache);
-            });
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(request, responseToCache);
+          });
         }
         return response;
       })
-      .catch(() => {
-        // Si falla la red, intentar servir desde caché
-        return caches.match(event.request);
-      })
+      .catch(() => caches.match(request))
   );
 });
