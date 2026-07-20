@@ -1,37 +1,30 @@
-import { createClient } from "@/lib/supabase/server";
 import {
   Header,
   Footer,
   HeroSection,
   GalleryGrid,
 } from "@/components/gallery";
+import { listPaintings } from "@/lib/mongodb/paintings";
+import type { Painting } from "@/types/database.types";
 
-export const revalidate = 60; // Revalidar cada 60 segundos
+export const revalidate = 60;
 
 export default async function HomePage() {
-  const supabase = await createClient();
+  let paintingsList: Painting[] = [];
 
-  // Obtener todas las pinturas ordenadas por fecha de creación
-  const { data: paintings, error } = await supabase
-    .from("paintings")
-    .select("*")
-    .order("created_at", { ascending: false });
-
-  if (error) {
+  try {
+    paintingsList = await listPaintings();
+  } catch (error) {
     console.error("Error fetching paintings:", error);
   }
-
-  const paintingsList = paintings ?? [];
 
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
 
       <main className="flex-1">
-        {/* Hero Section - versión para Milo */}
         <HeroSection totalPaintings={paintingsList.length} />
 
-        {/* Galería - versión para Milo (con acceso a admin) */}
         <section className="container mx-auto px-4 py-12">
           <GalleryGrid paintings={paintingsList} />
         </section>

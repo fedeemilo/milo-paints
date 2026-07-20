@@ -1,25 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createAdminClient } from "@/lib/supabase/admin";
-import { uploadPaintingImage, getThumbnailUrl, deleteImage } from "@/lib/cloudinary/upload";
+import {
+  uploadPaintingImage,
+  getThumbnailUrl,
+  deleteImage,
+} from "@/lib/cloudinary/upload";
 import { updatePaintingSchema } from "@/lib/validations/painting";
 import { slugify } from "@/lib/helpers";
+import {
+  getPaintingById,
+  updatePainting,
+  deletePainting,
+} from "@/lib/mongodb/paintings";
 
 interface RouteParams {
   params: Promise<{ id: string }>;
 }
 
-// GET - Obtener una pintura
-export async function GET(request: NextRequest, { params }: RouteParams) {
+export async function GET(_request: NextRequest, { params }: RouteParams) {
   const { id } = await params;
-  const supabase = createAdminClient();
+  const painting = await getPaintingById(id);
 
-  const { data: painting, error } = await supabase
-    .from("paintings")
-    .select("*")
-    .eq("id", id)
-    .single();
-
-  if (error || !painting) {
+  if (!painting) {
     return NextResponse.json(
       { error: "Pintura no encontrada" },
       { status: 404 }
@@ -29,10 +30,9 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
   return NextResponse.json(painting);
 }
 
-// PUT - Actualizar una pintura
 export async function PUT(request: NextRequest, { params }: RouteParams) {
   const { id } = await params;
-  
+
   try {
     const formData = await request.formData();
     const dataString = formData.get("data") as string;
@@ -45,10 +45,9 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    // Validar datos
     const data = JSON.parse(dataString);
     const validationResult = updatePaintingSchema.safeParse(data);
-    
+
     if (!validationResult.success) {
       const firstError = validationResult.error.issues[0];
       return NextResponse.json(
@@ -58,14 +57,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     }
 
     const validData = validationResult.data;
-    const supabase = createAdminClient();
-
-    // Obtener pintura actual
-    const { data: currentPainting } = await supabase
-      .from("paintings")
-      .select("cloudinary_public_id")
-      .eq("id", id)
-      .single();
+    const currentPainting = await getPaintingById(id);
 
     if (!currentPainting) {
       return NextResponse.json(
@@ -74,9 +66,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    const currentPaintingData = currentPainting as { cloudinary_public_id: string | null };
-
-    const updateData: Record<string, unknown> = {
+    const updateData: Parameters<typeof updatePainting>[1] = {
       name: validData.name,
       description: validData.description || null,
       price: validData.price || null,
@@ -87,17 +77,16 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       category: validData.category || null,
     };
 
-    // Si hay nueva imagen, subirla
     if (imageFile) {
       const imageBuffer = Buffer.from(await imageFile.arrayBuffer());
       const imageName = `${slugify(validData.name || "painting")}-${Date.now()}`;
 
-      // Subir nueva imagen
       const uploadResult = await uploadPaintingImage(imageBuffer, imageName);
-      
-      // Eliminar imagen anterior
-      if (currentPaintingData.cloudinary_public_id) {
-        await deleteImage(currentPaintingData.cloudinary_public_id).catch(console.error);
+
+      if (currentPainting.cloudinary_public_id) {
+        await deleteImage(currentPainting.cloudinary_public_id).catch(
+          console.error
+        );
       }
 
       updateData.image_url = uploadResult.secure_url;
@@ -105,16 +94,9 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       updateData.thumbnail_url = getThumbnailUrl(uploadResult.public_id, 400);
     }
 
-    // Actualizar en Supabase
-    const { data: painting, error } = await (supabase
-      .from("paintings") as ReturnType<typeof supabase.from>)
-      .update(updateData)
-      .eq("id", id)
-      .select()
-      .single();
+    const painting = await updatePainting(id, updateData);
 
-    if (error) {
-      console.error("Supabase error:", error);
+    if (!painting) {
       return NextResponse.json(
         { error: "Error al actualizar" },
         { status: 500 }
@@ -131,17 +113,9 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
   }
 }
 
-// DELETE - Eliminar una pintura
-export async function DELETE(request: NextRequest, { params }: RouteParams) {
+export async function DELETE(_request: NextRequest, { params }: RouteParams) {
   const { id } = await params;
-  const supabase = createAdminClient();
-
-  // Obtener pintura para eliminar imagen de Cloudinary
-  const { data: painting } = await supabase
-    .from("paintings")
-    .select("cloudinary_public_id")
-    .eq("id", id)
-    .single();
+  const painting = await getPaintingById(id);
 
   if (!painting) {
     return NextResponse.json(
@@ -150,24 +124,17 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
     );
   }
 
-  const paintingData = painting as { cloudinary_public_id: string | null };
+  const deleted = await deletePainting(id);
 
-  // Eliminar de Supabase
-  const { error } = await supabase
-    .from("paintings")
-    .delete()
-    .eq("id", id);
-
-  if (error) {
+  if (!deleted) {
     return NextResponse.json(
       { error: "Error al eliminar" },
       { status: 500 }
     );
   }
 
-  // Eliminar imagen de Cloudinary
-  if (paintingData.cloudinary_public_id) {
-    await deleteImage(paintingData.cloudinary_public_id).catch(console.error);
+  if (painting.cloudinary_public_id) {
+    await deleteImage(painting.cloudinary_public_id).catch(console.error);
   }
 
   return NextResponse.json({ success: true });

@@ -1,30 +1,15 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
 import { Images, Plus, TrendingUp } from "lucide-react";
-
-interface RecentPainting {
-  id: string;
-  name: string;
-  image_url: string;
-  created_at: string;
-}
+import {
+  countPaintings,
+  getRecentPaintings,
+} from "@/lib/mongodb/paintings";
 
 export default async function AdminDashboardPage() {
-  const supabase = await createClient();
-
-  // Obtener conteo de pinturas
-  const { count: totalPaintings } = await supabase
-    .from("paintings")
-    .select("*", { count: "exact", head: true });
-
-  // Obtener últimas 5 pinturas
-  const { data } = await supabase
-    .from("paintings")
-    .select("id, name, image_url, created_at")
-    .order("created_at", { ascending: false })
-    .limit(5);
-
-  const recentPaintings = (data ?? []) as RecentPainting[];
+  const [totalPaintings, recentPaintings] = await Promise.all([
+    countPaintings(),
+    getRecentPaintings(5),
+  ]);
 
   return (
     <div className="space-y-6 sm:space-y-8">
@@ -48,7 +33,7 @@ export default async function AdminDashboardPage() {
             <div>
               <p className="text-xs text-muted-foreground sm:text-sm">Total de Pinturas</p>
               <p className="text-xl font-bold text-foreground sm:text-2xl">
-                {totalPaintings ?? 0}
+                {totalPaintings}
               </p>
             </div>
           </div>

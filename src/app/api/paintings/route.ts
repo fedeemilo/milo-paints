@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createAdminClient } from "@/lib/supabase/admin";
 import { uploadPaintingImage, getThumbnailUrl } from "@/lib/cloudinary/upload";
 import { generateQRBuffer, getPaintingQRUrl } from "@/lib/qr/generate";
 import { uploadQRCode } from "@/lib/cloudinary/upload";
 import { createPaintingSchema } from "@/lib/validations/painting";
 import { slugify } from "@/lib/helpers";
+import { createPainting, updatePainting } from "@/lib/mongodb/paintings";
 
 export async function POST(request: NextRequest) {
   try {
@@ -26,10 +26,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validar datos
     const data = JSON.parse(dataString);
     const validationResult = createPaintingSchema.safeParse(data);
-    
+
     if (!validationResult.success) {
       const firstError = validationResult.error.issues[0];
       return NextResponse.json(
@@ -40,21 +39,13 @@ export async function POST(request: NextRequest) {
 
     const validData = validationResult.data;
 
-    // Convertir imagen a buffer
     const imageBuffer = Buffer.from(await imageFile.arrayBuffer());
-    
-    // Generar nombre único para la imagen
     const imageName = `${slugify(validData.name)}-${Date.now()}`;
 
-    // Subir imagen a Cloudinary
     const uploadResult = await uploadPaintingImage(imageBuffer, imageName);
-
-    // Generar thumbnail URL
     const thumbnailUrl = getThumbnailUrl(uploadResult.public_id, 400);
 
-    // Crear registro en Supabase
-    const supabase = createAdminClient();
-    const insertData = {
+    const painting = await createPainting({
       name: validData.name,
       description: validData.description || null,
       price: validData.price || null,
@@ -66,36 +57,17 @@ export async function POST(request: NextRequest) {
       image_url: uploadResult.secure_url,
       cloudinary_public_id: uploadResult.public_id,
       thumbnail_url: thumbnailUrl,
-    };
-    const { data: painting, error } = await (supabase
-      .from("paintings") as ReturnType<typeof supabase.from>)
-      .insert(insertData)
-      .select()
-      .single();
+    });
 
-    if (error) {
-      console.error("Supabase error:", error);
-      return NextResponse.json(
-        { error: "Error al guardar en la base de datos" },
-        { status: 500 }
-      );
-    }
-
-    // Generar código QR
-    const paintingData = painting as { id: string; [key: string]: unknown };
-    const qrUrl = getPaintingQRUrl(paintingData.id);
+    const qrUrl = getPaintingQRUrl(painting.id);
     const qrBuffer = await generateQRBuffer(qrUrl);
-    const qrCodeUrl = await uploadQRCode(qrBuffer, paintingData.id);
+    const qrCodeUrl = await uploadQRCode(qrBuffer, painting.id);
 
-    // Actualizar pintura con URL del QR
-    await (supabase
-      .from("paintings") as ReturnType<typeof supabase.from>)
-      .update({ qr_code_url: qrCodeUrl })
-      .eq("id", paintingData.id);
+    await updatePainting(painting.id, { qr_code_url: qrCodeUrl });
 
-    return NextResponse.json({ 
-      ...paintingData,
-      qr_code_url: qrCodeUrl 
+    return NextResponse.json({
+      ...painting,
+      qr_code_url: qrCodeUrl,
     });
   } catch (error) {
     console.error("Error creating painting:", error);

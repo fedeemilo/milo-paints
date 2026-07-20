@@ -1,9 +1,8 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
 import { formatPrice } from "@/lib/helpers";
 import { Plus, Pencil, QrCode, ChevronLeft, ChevronRight, LayoutGrid, List } from "lucide-react";
 import { DeletePaintingButton, SoldToggleButton } from "@/components/admin";
-import type { Painting } from "@/types/database.types";
+import { listPaintingsPaginated } from "@/lib/mongodb/paintings";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -15,26 +14,14 @@ export default async function AdminPaintingsPage({ searchParams }: PageProps) {
   const params = await searchParams;
   const currentPage = parseInt(params.page || "1", 10);
   const viewMode = params.view || "table"; // 'table' o 'grid'
-  const supabase = await createClient();
 
-  // Obtener total de pinturas para calcular páginas
-  const { count: totalCount } = await supabase
-    .from("paintings")
-    .select("*", { count: "exact", head: true });
-
-  const totalPaintings = totalCount ?? 0;
-  const totalPages = Math.ceil(totalPaintings / ITEMS_PER_PAGE);
   const from = (currentPage - 1) * ITEMS_PER_PAGE;
+  const { paintings, total: totalPaintings } = await listPaintingsPaginated(
+    from,
+    ITEMS_PER_PAGE
+  );
+  const totalPages = Math.ceil(totalPaintings / ITEMS_PER_PAGE);
   const to = from + ITEMS_PER_PAGE - 1;
-
-  // Obtener pinturas paginadas
-  const { data } = await supabase
-    .from("paintings")
-    .select("*")
-    .order("created_at", { ascending: false })
-    .range(from, to);
-
-  const paintings = (data ?? []) as Painting[];
 
   return (
     <div className="space-y-6">

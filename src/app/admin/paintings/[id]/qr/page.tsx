@@ -1,29 +1,16 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { QRCodeDisplay } from "@/components/admin";
-import type { Painting } from "@/types/database.types";
+import { getPaintingById } from "@/lib/mongodb/paintings";
 
 interface PageProps {
   params: Promise<{ id: string }>;
 }
 
-async function getPainting(id: string): Promise<Painting | null> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("paintings")
-    .select("*")
-    .eq("id", id)
-    .single();
-
-  if (error || !data) return null;
-  return data;
-}
-
 export default async function PaintingQRPage({ params }: PageProps) {
   const { id } = await params;
-  const painting = await getPainting(id);
+  const painting = await getPaintingById(id);
 
   if (!painting) {
     notFound();

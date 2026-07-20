@@ -2,34 +2,20 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
 import { isAuthenticated } from "@/lib/auth/session";
 import { formatPrice, formatDimensions } from "@/lib/helpers";
 import { PublicHeader, PublicFooter } from "@/components/gallery";
 import { ArrowLeft, Calendar, Ruler, Tag, Mail } from "lucide-react";
-import type { Painting } from "@/types/database.types";
+import { getPaintingById } from "@/lib/mongodb/paintings";
 
 interface PageProps {
   params: Promise<{ id: string }>;
 }
 
-// Helper para obtener pintura
-async function getPainting(id: string): Promise<Painting | null> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("paintings")
-    .select("*")
-    .eq("id", id)
-    .single();
-
-  if (error || !data) return null;
-  return data;
-}
-
 // Generar metadata dinámica para SEO
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = await params;
-  const painting = await getPainting(id);
+  const painting = await getPaintingById(id);
 
   if (!painting) {
     return {
@@ -52,7 +38,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function PaintingQRPage({ params }: PageProps) {
   const { id } = await params;
-  const painting = await getPainting(id);
+  const painting = await getPaintingById(id);
 
   if (!painting) {
     notFound();

@@ -9,7 +9,7 @@ Galería de arte online para Milo, un artista plástico. El proyecto permite:
 
 ### Stack Tecnológico
 - **Framework**: Next.js 15+ (App Router)
-- **Base de datos**: Supabase (PostgreSQL)
+- **Base de datos**: MongoDB Atlas
 - **Almacenamiento de imágenes**: Cloudinary
 - **Estilos**: Tailwind CSS + Shadcn/ui
 - **Validaciones**: Zod + React Hook Form
@@ -49,7 +49,7 @@ Galería de arte online para Milo, un artista plástico. El proyecto permite:
 - Usar TypeScript estricto, bien tipado
 - Evitar `any`, usar tipos específicos
 - Interfaces para props de componentes
-- Types para responses de API y tablas de Supabase (`src/types/database.types.ts`)
+- Types para responses de API y documentos Mongo (`src/types/database.types.ts`)
 
 ### Componentes
 
@@ -79,7 +79,7 @@ src/
 │   ├── gallery/            # Componentes de la galería pública
 │   └── ui/                 # Componentes base (shadcn)
 ├── lib/
-│   ├── supabase/           # Clientes Supabase (client, server, admin)
+│   ├── mongodb/            # Cliente MongoDB + CRUD de pinturas
 │   ├── cloudinary/         # Configuración Cloudinary
 │   ├── validations/        # Schemas Zod
 │   └── helpers.ts          # Utilidades (formatPrice, formatDimensions, etc.)
@@ -117,23 +117,25 @@ feat: agregar estado de venta a pinturas
 
 ---
 
-## 🗄️ Base de datos (Supabase):
+## 🗄️ Base de datos (MongoDB Atlas):
 
-### Clientes
+### Cliente y acceso
 
-- `src/lib/supabase/client.ts` - Para componentes client-side
-- `src/lib/supabase/server.ts` - Para server components y API routes
-- `src/lib/supabase/admin.ts` - Para operaciones con service role (scripts)
+- `src/lib/mongodb/client.ts` - Conexión singleton (server-side)
+- `src/lib/mongodb/paintings.ts` - CRUD de la colección `paintings`
+- DB: `milo-paints`, colección: `paintings`
+- Identificador público: campo `id` (UUID string). `_id` es ObjectId interno de Mongo.
+- Las URLs `/qr/[id]` y los QR impresos usan el UUID, no el ObjectId.
 
 ### Tipos
 
-- Mantener `src/types/database.types.ts` sincronizado con el schema de Supabase
+- Mantener `src/types/database.types.ts` alineado con la colección
 - Usar el tipo `Painting` para todas las operaciones con pinturas
 
-### RLS (Row Level Security)
+### Auth de escritura
 
-- Lectura pública habilitada para `paintings`
-- Escritura requiere autenticación (manejada por cookie de sesión admin)
+- Auth admin por cookie (`ADMIN_PASSWORD`), no por roles de Mongo
+- El usuario de Atlas debe tener solo `readWrite` sobre la DB `milo-paints`
 
 ---
 
@@ -222,9 +224,8 @@ feat: agregar estado de venta a pinturas
 ### Variables de entorno requeridas:
 
 ```
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
-SUPABASE_SERVICE_ROLE_KEY=
+MONGODB_URI=
+MONGODB_DB_NAME=milo-paints
 NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=
 CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=

@@ -5,7 +5,7 @@ Galería de arte online para exhibir y gestionar pinturas originales. Cada obra 
 ![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38B2AC?style=flat-square&logo=tailwind-css)
-![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?style=flat-square&logo=supabase)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=flat-square&logo=mongodb)
 
 ---
 
@@ -28,7 +28,7 @@ Galería de arte online para exhibir y gestionar pinturas originales. Cada obra 
 | **TypeScript** | Tipado estático |
 | **Tailwind CSS** | Estilos utilitarios |
 | **Shadcn/ui** | Componentes UI |
-| **Supabase** | Base de datos PostgreSQL |
+| **MongoDB Atlas** | Base de datos |
 | **Cloudinary** | Almacenamiento de imágenes |
 | **Zod** | Validación de schemas |
 
@@ -39,7 +39,7 @@ Galería de arte online para exhibir y gestionar pinturas originales. Cada obra 
 ### Prerrequisitos
 
 - Node.js 18+
-- Cuenta en [Supabase](https://supabase.com)
+- Cluster en [MongoDB Atlas](https://www.mongodb.com/atlas)
 - Cuenta en [Cloudinary](https://cloudinary.com)
 
 ### Pasos
@@ -59,44 +59,16 @@ npm install
 
 3. **Configurar variables de entorno**
 
-Copiar el archivo de ejemplo y completar con tus credenciales:
-
 ```bash
 cp .env.example .env.local
 ```
 
-4. **Crear la tabla en Supabase**
+Completar `MONGODB_URI`, `MONGODB_DB_NAME` y el resto según `.env.example`.
 
-Ejecutar en el SQL Editor de Supabase:
+4. **Base de datos**
 
-```sql
-CREATE TABLE paintings (
-  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  description TEXT,
-  image_url TEXT NOT NULL,
-  thumbnail_url TEXT,
-  qr_code_url TEXT,
-  price DECIMAL(10,2),
-  width DECIMAL(10,2),
-  height DECIMAL(10,2),
-  depth DECIMAL(10,2),
-  year INTEGER,
-  category VARCHAR(100),
-  sold BOOLEAN DEFAULT FALSE,
-  sold_at TIMESTAMP WITH TIME ZONE,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
-
--- Habilitar lectura pública
-ALTER TABLE paintings ENABLE ROW LEVEL SECURITY;
-
-CREATE POLICY "Lectura pública de pinturas"
-ON paintings FOR SELECT
-TO public
-USING (true);
-```
+Crear en Atlas la DB `milo-paints` y la colección `paintings`.  
+Cada documento usa un campo `id` (UUID string) como identificador público para URLs `/qr/[id]` y códigos QR. El `_id` de Mongo es interno.
 
 5. **Iniciar el servidor de desarrollo**
 
@@ -122,7 +94,7 @@ src/
 │   ├── gallery/         # Componentes públicos
 │   └── ui/              # Componentes base
 ├── lib/
-│   ├── supabase/        # Clientes de BD
+│   ├── mongodb/         # Cliente y CRUD de pinturas
 │   ├── cloudinary/      # Config de imágenes
 │   └── validations/     # Schemas Zod
 └── types/               # Tipos TypeScript
@@ -134,9 +106,8 @@ src/
 
 | Variable | Descripción |
 |----------|-------------|
-| `NEXT_PUBLIC_SUPABASE_URL` | URL del proyecto Supabase |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Clave anónima de Supabase |
-| `SUPABASE_SERVICE_ROLE_KEY` | Clave de servicio (solo backend) |
+| `MONGODB_URI` | Connection string de MongoDB Atlas |
+| `MONGODB_DB_NAME` | Nombre de la base (default: `milo-paints`) |
 | `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` | Nombre del cloud en Cloudinary |
 | `CLOUDINARY_API_KEY` | API Key de Cloudinary |
 | `CLOUDINARY_API_SECRET` | API Secret de Cloudinary |
@@ -158,20 +129,4 @@ npm run lint     # Verificar código
 
 ## 🌐 Deploy
 
-El proyecto está optimizado para deploy en **Vercel**:
-
-1. Conectar el repositorio de GitHub
-2. Configurar las variables de entorno
-3. Deploy automático con cada push a `main`
-
----
-
-## 📝 Licencia
-
-Este proyecto es privado y de uso personal.
-
----
-
-<p align="center">
-  Hecho con ❤️ por <a href="https://fedmilo.com">fedmilo</a>
-</p>
+Deploy en [Vercel](https://vercel.com). Configurar las mismas variables de entorno en el dashboard del proyecto.

@@ -7,6 +7,24 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [0.5.0] - 2026-07-20
+
+### ✨ Changed
+
+- **Migración de Supabase (Postgres) a MongoDB Atlas**
+  - Causa: el plan free de Supabase pausaba la BD por bajo tráfico
+  - Nueva capa de datos en `src/lib/mongodb/` (cliente + CRUD de pinturas)
+  - El identificador público sigue siendo el UUID en el campo `id` (los QR/URLs no cambian)
+  - `_id` de Mongo es ObjectId interno; las queries usan `id`
+  - Variables de entorno: `MONGODB_URI` y `MONGODB_DB_NAME` (reemplazan las de Supabase)
+
+### 🗑️ Removed
+
+- Dependencias `@supabase/ssr` y `@supabase/supabase-js`
+- Clientes en `src/lib/supabase/`
+
+---
+
 ## [0.4.1] - 2026-01-26
 
 ### ✨ Added
