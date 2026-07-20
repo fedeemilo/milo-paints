@@ -57,11 +57,7 @@ export function PWAInstallBanner() {
     deferredPrompt.prompt();
 
     // Esperar la decisión del usuario
-    const { outcome } = await deferredPrompt.userChoice;
-
-    if (outcome === "accepted") {
-      console.log("Usuario aceptó instalar la PWA");
-    }
+    await deferredPrompt.userChoice;
 
     // Limpiar el prompt
     setDeferredPrompt(null);

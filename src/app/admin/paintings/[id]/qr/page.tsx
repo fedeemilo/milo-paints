@@ -44,7 +44,7 @@ export default async function PaintingQRPage({ params }: PageProps) {
             <img
               src={painting.image_url}
               alt={painting.name}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-contain"
             />
           </div>
           <div className="p-4">

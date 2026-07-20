@@ -7,6 +7,18 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [0.5.4] - 2026-07-20
+
+### 🎨 Improved
+
+- Admin: thumbs de obras con `object-contain` (no recortan la pintura)
+- Galería: cards vendidas muestran “Vendido” en lugar de dejar el bloque vacío
+- Login: rate limit (10 intentos / 15 min por IP, best-effort en serverless)
+- APIs create/update: campos numéricos usan `??` (permite `0`)
+- PWA: sin `console.log` en cliente
+
+---
+
 ## [0.5.3] - 2026-07-20
 
 ### ✨ Added / Improved

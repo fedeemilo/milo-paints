@@ -157,11 +157,17 @@ Priorizado; no implementar todo de golpe sin acuerdo:
 6. ~~Al borrar pintura, destruir también el QR en Cloudinary.~~ ✅ 0.5.3
 
 ### P2 — UX / higiene
-7. Admin thumbs: `object-contain` en lugar de `object-cover`.
-8. Cards vendidas sin precio/año: evitar “bloque vacío” (copy “Vendido” / precio tachado).
-9. Rate-limit en login; no devolver `details` de errores internos al cliente.
-10. `.gitignore`: `*.csv` / exports; limpiar `console.log` de PWA en cliente.
-11. `price: x || null` → preferir `??` (el `0` no debería anularse).
+7. ~~Admin thumbs: `object-contain` en lugar de `object-cover`.~~ ✅ 0.5.4
+8. ~~Cards vendidas sin precio/año: copy “Vendido”.~~ ✅ 0.5.4
+9. ~~Rate-limit en login; no filtrar detalles de error al cliente.~~ ✅ 0.5.4
+10. ~~`.gitignore` CSV; limpiar `console.log` PWA; `price ?? null`.~~ ✅ 0.5.4 / 0.5.1
+
+### P3 — Performance / navegación (radar)
+11. Navegación admin se siente “trabada” (delay al ir Dashboard → Pinturas). Evaluar:
+    - Transiciones inmediatas + loading UI (`loading.tsx` / spinner en layout)
+    - Prefetch de links de Next (ya suele estar; verificar)
+    - Cache de datos server (revalidate / unstable_cache) o capa cliente (React Query) si aporta
+    - No sobre-ingenierizar: app chica, priorizar percepción de velocidad en admin
 
 ---
 

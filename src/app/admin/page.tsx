@@ -92,7 +92,7 @@ export default async function AdminDashboardPage() {
                   <img
                     src={painting.image_url}
                     alt={painting.name}
-                    className="h-full w-full object-cover transition-transform group-hover:scale-105"
+                    className="h-full w-full object-contain transition-transform group-hover:scale-105"
                   />
                 </div>
                 <div className="p-2 sm:p-3">

@@ -77,11 +77,11 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     const updateData: Parameters<typeof updatePainting>[1] = {
       name: validData.name,
       description: validData.description || null,
-      price: validData.price || null,
-      width: validData.width || null,
-      height: validData.height || null,
-      depth: validData.depth || null,
-      year: validData.year || null,
+      price: validData.price ?? null,
+      width: validData.width ?? null,
+      height: validData.height ?? null,
+      depth: validData.depth ?? null,
+      year: validData.year ?? null,
       category: validData.category || null,
     };
 

@@ -80,21 +80,18 @@ export function PaintingCard({ painting }: PaintingCardProps) {
             {painting.name}
           </h3>
 
-          <div className="mt-2 flex items-center justify-between">
-            {!painting.sold && (
+          <div className="mt-2 flex min-h-5 items-center justify-between gap-2">
+            {painting.sold ? (
+              <span className="text-sm font-medium text-amber-700">Vendido</span>
+            ) : (
               <span className="text-sm font-medium text-primary">
                 {formatPrice(painting.price)}
               </span>
             )}
 
-            {painting.year && (
-              <span className={cn(
-                "text-xs text-muted-foreground",
-                painting.sold && "ml-auto"
-              )}>
-                {painting.year}
-              </span>
-            )}
+            {painting.year ? (
+              <span className="text-xs text-muted-foreground">{painting.year}</span>
+            ) : null}
           </div>
         </div>
       </article>

@@ -117,7 +117,7 @@ export function PaintingForm({ painting }: PaintingFormProps) {
             <img
               src={imagePreview}
               alt="Preview"
-              className="h-48 w-48 rounded-lg object-cover"
+              className="h-48 w-48 rounded-lg object-contain"
             />
             <button
               type="button"
