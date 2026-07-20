@@ -16,7 +16,7 @@ export default async function AdminDashboardPage() {
       {/* Header */}
       <div>
         <h1 className="font-serif text-2xl font-bold text-foreground sm:text-3xl">
-          Dashboard
+          Inicio
         </h1>
         <p className="mt-1 text-sm text-muted-foreground sm:text-base">
           Bienvenido al panel de administración de tu galería.

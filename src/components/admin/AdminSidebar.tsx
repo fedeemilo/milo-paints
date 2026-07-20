@@ -16,7 +16,7 @@ import { NavPendingIndicator } from "@/components/admin/NavPendingIndicator";
 
 const navItems = [
   {
-    label: "Dashboard",
+    label: "Inicio",
     href: "/admin",
     icon: LayoutDashboard,
   },
@@ -79,10 +79,15 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
 
       <nav className="flex-1 space-y-1 overflow-y-auto p-3">
         {navItems.map((item) => {
+          // "Pinturas" no debe quedar activo en /paintings/new (solo listado/edición/QR)
           const isActive =
             item.href === "/admin"
               ? pathname === "/admin"
-              : pathname.startsWith(item.href);
+              : item.href === "/admin/paintings"
+                ? pathname === "/admin/paintings" ||
+                  (pathname.startsWith("/admin/paintings/") &&
+                    !pathname.startsWith("/admin/paintings/new"))
+                : pathname === item.href || pathname.startsWith(`${item.href}/`);
 
           return (
             <Link

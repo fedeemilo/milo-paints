@@ -22,7 +22,7 @@ export async function middleware(request: NextRequest) {
 
   if (PUBLIC_ADMIN_ROUTES.includes(pathname)) {
     if (isAuthenticated) {
-      return NextResponse.redirect(new URL("/admin", request.url));
+      return NextResponse.redirect(new URL("/admin/paintings", request.url));
     }
     return NextResponse.next();
   }

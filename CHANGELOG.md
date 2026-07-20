@@ -7,6 +7,26 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [0.6.0] - 2026-07-20
+
+### ✨ Added / Changed (acceso admin más simple — paquete A)
+
+- Entrada visible sin escribir `/admin`:
+  - Header público: “Administrar” → login (si hay sesión: “Mis obras” → listado)
+  - Footer: link discreto “Administrar obras”
+- Post-login aterriza en `/admin/paintings` (no en Inicio)
+- Sesión admin extendida a **60 días** (menos re-logins)
+
+### 🎨 Changed
+
+- Renombrado “Dashboard” → “Inicio” en sidebar y página admin
+
+### 🐛 Fixed
+
+- Sidebar: en “Nueva Pintura” ya no se resalta también “Pinturas”
+
+---
+
 ## [0.5.5] - 2026-07-20
 
 ### 🎨 Improved (P3 performance percibida)

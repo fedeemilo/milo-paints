@@ -1,5 +1,5 @@
 export const SESSION_COOKIE_NAME = "milo-admin-session";
-export const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 7; // 7 días
+export const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 60; // 60 días
 const SESSION_MAX_AGE_MS = SESSION_MAX_AGE_SECONDS * 1000;
 
 function getSessionSecret(): string {

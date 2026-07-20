@@ -19,6 +19,14 @@ export function PublicFooter() {
             &copy; {currentYear} Milo Paints. Todos los derechos reservados.
           </p>
 
+          {/* Entrada discreta al panel (paquete A: sin escribir /admin) */}
+          <Link
+            href="/admin/login"
+            className="text-xs text-muted-foreground/80 underline-offset-2 transition-colors hover:text-foreground hover:underline"
+          >
+            Administrar obras
+          </Link>
+
           {/* Firma */}
           <p className="flex items-center gap-1 text-xs text-muted-foreground">
             Hecho con <Heart className="h-3 w-3 fill-red-500 text-red-500" /> por{" "}

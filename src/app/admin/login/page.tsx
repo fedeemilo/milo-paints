@@ -23,8 +23,10 @@ export default function AdminLoginPage() {
       });
 
       if (response.ok) {
-        router.push("/admin");
+        router.push("/admin/paintings");
         router.refresh();
+      } else if (response.status === 429) {
+        setError("Demasiados intentos. Probá de nuevo más tarde.");
       } else {
         setError("Contraseña incorrecta");
       }

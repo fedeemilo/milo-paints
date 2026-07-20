@@ -56,9 +56,9 @@ Al crear obras nuevas: `randomUUID()` para `id`.
 | Ruta | Rol |
 |------|-----|
 | `/` | Home “admin” (requiere cookie; si no → redirect `/galeria`) |
-| `/galeria` | Galería pública |
+| `/galeria` | Galería pública — entrada “Administrar” / footer → login |
 | `/qr/[id]` | Detalle público de una obra (destino del QR) |
-| `/admin`, `/admin/paintings`, `/admin/paintings/new`, `/admin/paintings/[id]`, `.../qr` | Panel |
+| `/admin`, `/admin/paintings`, … | Panel (post-login aterriza en `/admin/paintings`) |
 | `/admin/login` | Login |
 | `POST/PUT/DELETE /api/paintings*` | Mutaciones (Cloudinary + Mongo) |
 | `PATCH /api/paintings/[id]/sold` | Toggle vendido |
@@ -121,7 +121,7 @@ En Atlas: usuario app con **solo** `readWrite` sobre DB `milo-paints`. Network A
 ## Auth — estado y riesgos
 
 - Login compara password con `ADMIN_PASSWORD`.
-- Cookie `milo-admin-session`: token **firmado HMAC-SHA256** (`admin:<expiresAt>` + firma), expira a 7 días.
+- Cookie `milo-admin-session`: token **firmado HMAC-SHA256** (`admin:<expiresAt>` + firma), expira a **60 días**.
 - Secreto: `SESSION_SECRET` (recomendado en prod) o fallback `ADMIN_PASSWORD`.
 - Validación en:
   - `verifySessionToken` (Edge-safe, usado por middleware)
