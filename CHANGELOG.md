@@ -7,6 +7,16 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [0.5.5] - 2026-07-20
+
+### 🎨 Improved (P3 performance percibida)
+
+- **`admin/loading.tsx`**: spinner inmediato al navegar entre rutas del admin (sidebar queda fijo)
+- **Indicador pending en sidebar** (`useLinkStatus`): feedback al click si la navegación tarda
+- Sin React Query por ahora: las páginas admin siguen siendo Server Components; el cuello era la falta de fallback visual, no la falta de cache cliente
+
+---
+
 ## [0.5.4] - 2026-07-20
 
 ### 🎨 Improved

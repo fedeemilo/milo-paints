@@ -162,12 +162,10 @@ Priorizado; no implementar todo de golpe sin acuerdo:
 9. ~~Rate-limit en login; no filtrar detalles de error al cliente.~~ ✅ 0.5.4
 10. ~~`.gitignore` CSV; limpiar `console.log` PWA; `price ?? null`.~~ ✅ 0.5.4 / 0.5.1
 
-### P3 — Performance / navegación (radar)
-11. Navegación admin se siente “trabada” (delay al ir Dashboard → Pinturas). Evaluar:
-    - Transiciones inmediatas + loading UI (`loading.tsx` / spinner en layout)
-    - Prefetch de links de Next (ya suele estar; verificar)
-    - Cache de datos server (revalidate / unstable_cache) o capa cliente (React Query) si aporta
-    - No sobre-ingenierizar: app chica, priorizar percepción de velocidad en admin
+### P3 — Performance / navegación
+11. ~~Navegación admin “trabada”.~~ ✅ 0.5.5 — `loading.tsx` + `useLinkStatus` en sidebar.
+    - React Query / cache cliente: **no** como default; solo si hiciera falta fetch cliente o datos muy repetidos.
+    - Prefetch de `Link` sigue habilitado (ayuda en prod).
 
 ---
 

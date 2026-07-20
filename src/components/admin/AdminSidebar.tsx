@@ -12,6 +12,7 @@ import {
   X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { NavPendingIndicator } from "@/components/admin/NavPendingIndicator";
 
 const navItems = [
   {
@@ -47,7 +48,6 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
   };
 
   const handleLinkClick = () => {
-    // Cerrar sidebar en mobile al hacer click en un link
     onClose();
   };
 
@@ -58,14 +58,16 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}
     >
-      {/* Logo */}
       <div className="flex h-14 flex-shrink-0 items-center justify-between border-b border-border px-4">
-        <Link href="/admin" onClick={handleLinkClick} className="flex items-center gap-2">
+        <Link
+          href="/admin"
+          onClick={handleLinkClick}
+          className="flex items-center gap-2"
+        >
           <Palette className="h-5 w-5 text-primary" />
           <span className="font-serif text-base font-semibold">Milo Paints</span>
         </Link>
-        
-        {/* Close button - solo visible en mobile */}
+
         <button
           onClick={onClose}
           className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground lg:hidden"
@@ -75,7 +77,6 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
         </button>
       </div>
 
-      {/* Navegación - crece pero permite scroll si es necesario */}
       <nav className="flex-1 space-y-1 overflow-y-auto p-3">
         {navItems.map((item) => {
           const isActive =
@@ -96,13 +97,17 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
               )}
             >
               <item.icon className="h-4 w-4 flex-shrink-0" />
-              {item.label}
+              <span className="flex-1">{item.label}</span>
+              <NavPendingIndicator
+                className={
+                  isActive ? "text-primary-foreground" : "text-primary"
+                }
+              />
             </Link>
           );
         })}
       </nav>
 
-      {/* Footer del sidebar - siempre visible al fondo */}
       <div className="flex-shrink-0 space-y-1 border-t border-border bg-card p-3">
         <Link
           href="/"
@@ -110,7 +115,8 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
           className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
         >
           <Home className="h-4 w-4 flex-shrink-0" />
-          Ver Galería
+          <span className="flex-1">Ver Galería</span>
+          <NavPendingIndicator />
         </Link>
         <button
           onClick={handleLogout}
