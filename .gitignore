@@ -33,6 +33,11 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env
 .env.local
+.env*.local
+
+# exports / backups locales
+*.csv
+paintings_rows.csv
 
 # vercel
 .vercel

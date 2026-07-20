@@ -166,7 +166,7 @@ export default async function PaintingQRPage({ params }: PageProps) {
                     contactate directamente con el artista.
                   </p>
                   <a
-                    href="mailto:guillemilo@gmail.com?subject=Consulta sobre: ${painting.name}"
+                    href={`mailto:guillemilo@gmail.com?subject=${encodeURIComponent(`Consulta sobre: ${painting.name}`)}`}
                     className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
                   >
                     <Mail className="h-4 w-4" />

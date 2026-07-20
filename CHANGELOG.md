@@ -7,6 +7,33 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [0.5.2] - 2026-07-20
+
+### 🐛 Fixed / Security
+
+- **Auth en APIs de pinturas**: middleware + `requireAdminApi` en GET/POST/PUT/DELETE/PATCH de `/api/paintings*`
+  - Causa: las mutaciones eran públicas; cualquiera podía crear/editar/borrar obras
+- **Cookie de sesión firmada (HMAC-SHA256)** con expiración 7 días
+  - Causa: bastaba con inventar cualquier valor de cookie para pasar el middleware
+  - Nuevo: `SESSION_SECRET` (fallback local: `ADMIN_PASSWORD`)
+- **Mailto en página QR**: el subject ahora interpola el nombre de la obra
+  - Causa: string JSX estática con `${painting.name}` literal
+
+---
+
+## [0.5.1] - 2026-07-20
+
+### ✨ Added
+
+- **`CLAUDE.md`**: guía de contexto para agentes (stack, modelo de datos, auth, rutas, backlog conocido)
+- `.gitignore`: ignorar CSV de exports y `.env*.local`
+
+### 🎨 Changed
+
+- Documentación alineada post-migración a MongoDB Atlas
+
+---
+
 ## [0.5.0] - 2026-07-20
 
 ### ✨ Changed

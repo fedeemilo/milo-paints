@@ -1,46 +1,37 @@
 import { cookies } from "next/headers";
+import {
+  SESSION_COOKIE_NAME,
+  SESSION_MAX_AGE_SECONDS,
+  createSessionToken,
+  verifySessionToken,
+} from "./session-token";
 
-const SESSION_COOKIE_NAME = "milo-admin-session";
-const SESSION_MAX_AGE = 60 * 60 * 24 * 7; // 7 días
+export { SESSION_COOKIE_NAME, verifySessionToken } from "./session-token";
 
-/**
- * Verifica si la contraseña es correcta
- */
 export function verifyPassword(password: string): boolean {
   return password === process.env.ADMIN_PASSWORD;
 }
 
-/**
- * Crea una sesión de admin
- */
 export async function createSession(): Promise<void> {
   const cookieStore = await cookies();
-  
-  // Token simple (en producción usar JWT o similar)
-  const sessionToken = Buffer.from(`admin:${Date.now()}`).toString("base64");
-  
+  const sessionToken = await createSessionToken();
+
   cookieStore.set(SESSION_COOKIE_NAME, sessionToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
-    maxAge: SESSION_MAX_AGE,
+    maxAge: SESSION_MAX_AGE_SECONDS,
     path: "/",
   });
 }
 
-/**
- * Elimina la sesión de admin
- */
 export async function deleteSession(): Promise<void> {
   const cookieStore = await cookies();
   cookieStore.delete(SESSION_COOKIE_NAME);
 }
 
-/**
- * Verifica si hay una sesión activa
- */
 export async function isAuthenticated(): Promise<boolean> {
   const cookieStore = await cookies();
   const session = cookieStore.get(SESSION_COOKIE_NAME);
-  return !!session?.value;
+  return verifySessionToken(session?.value);
 }

@@ -1,17 +1,25 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import {
+  SESSION_COOKIE_NAME,
+  verifySessionToken,
+} from "@/lib/auth/session-token";
 
-const SESSION_COOKIE_NAME = "milo-admin-session";
-
-// Rutas públicas dentro de admin
 const PUBLIC_ADMIN_ROUTES = ["/admin/login"];
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const session = request.cookies.get(SESSION_COOKIE_NAME);
-  const isAuthenticated = !!session?.value;
+  const isAuthenticated = await verifySessionToken(session?.value);
 
-  // Rutas públicas de admin (login) - si ya está auth, redirigir a admin
+  // API de pinturas: requieren sesión firmada válida
+  if (pathname.startsWith("/api/paintings")) {
+    if (!isAuthenticated) {
+      return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+    }
+    return NextResponse.next();
+  }
+
   if (PUBLIC_ADMIN_ROUTES.includes(pathname)) {
     if (isAuthenticated) {
       return NextResponse.redirect(new URL("/admin", request.url));
@@ -19,7 +27,6 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Página principal "/" - requiere auth
   if (pathname === "/") {
     if (!isAuthenticated) {
       return NextResponse.redirect(new URL("/galeria", request.url));
@@ -27,7 +34,6 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Rutas /admin/* - requieren auth
   if (pathname.startsWith("/admin")) {
     if (!isAuthenticated) {
       return NextResponse.redirect(new URL("/admin/login", request.url));
@@ -39,5 +45,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/admin/:path*"],
+  matcher: ["/", "/admin/:path*", "/api/paintings/:path*"],
 };

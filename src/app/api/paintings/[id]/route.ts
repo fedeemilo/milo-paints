@@ -11,12 +11,16 @@ import {
   updatePainting,
   deletePainting,
 } from "@/lib/mongodb/paintings";
+import { requireAdminApi } from "@/lib/auth/require-admin";
 
 interface RouteParams {
   params: Promise<{ id: string }>;
 }
 
 export async function GET(_request: NextRequest, { params }: RouteParams) {
+  const unauthorized = await requireAdminApi();
+  if (unauthorized) return unauthorized;
+
   const { id } = await params;
   const painting = await getPaintingById(id);
 
@@ -31,6 +35,9 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
 }
 
 export async function PUT(request: NextRequest, { params }: RouteParams) {
+  const unauthorized = await requireAdminApi();
+  if (unauthorized) return unauthorized;
+
   const { id } = await params;
 
   try {
@@ -114,6 +121,9 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 }
 
 export async function DELETE(_request: NextRequest, { params }: RouteParams) {
+  const unauthorized = await requireAdminApi();
+  if (unauthorized) return unauthorized;
+
   const { id } = await params;
   const painting = await getPaintingById(id);
 

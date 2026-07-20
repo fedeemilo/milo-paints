@@ -5,8 +5,12 @@ import { uploadQRCode } from "@/lib/cloudinary/upload";
 import { createPaintingSchema } from "@/lib/validations/painting";
 import { slugify } from "@/lib/helpers";
 import { createPainting, updatePainting } from "@/lib/mongodb/paintings";
+import { requireAdminApi } from "@/lib/auth/require-admin";
 
 export async function POST(request: NextRequest) {
+  const unauthorized = await requireAdminApi();
+  if (unauthorized) return unauthorized;
+
   try {
     const formData = await request.formData();
     const dataString = formData.get("data") as string;
