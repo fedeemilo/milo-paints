@@ -7,6 +7,16 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [0.6.1] - 2026-07-21
+
+### 🎨 Improved
+
+- Paginación (y toggle tabla/grilla) en admin pinturas: spinner inmediato al cambiar de página
+  - Causa: `loading.tsx` no cubre soft navigation de `?page=` / `?view=`
+  - Solución: `useTransition` + overlay en `PaintingsNavigable`
+
+---
+
 ## [0.6.0] - 2026-07-20
 
 ### ✨ Added / Changed (acceso admin más simple — paquete A)
