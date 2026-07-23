@@ -7,6 +7,15 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [0.6.2] - 2026-07-22
+
+### 🐛 Fixed
+
+- Badge “obras disponibles” en el hero: cuenta solo pinturas no vendidas
+  - Causa: usaba `paintingsList.length` (todas las obras)
+
+---
+
 ## [0.6.1] - 2026-07-21
 
 ### 🎨 Improved

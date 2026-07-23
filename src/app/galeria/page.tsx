@@ -30,7 +30,10 @@ export default async function PublicGalleryPage() {
       <PublicHeader />
 
       <main className="flex-1">
-        <HeroSection totalPaintings={paintingsList.length} isPublic />
+        <HeroSection
+          totalPaintings={paintingsList.filter((p) => !p.sold).length}
+          isPublic
+        />
 
         <section className="container mx-auto px-4 py-8 sm:py-10 md:py-12">
           <GalleryGrid paintings={paintingsList} isPublic />

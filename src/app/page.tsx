@@ -23,7 +23,9 @@ export default async function HomePage() {
       <Header />
 
       <main className="flex-1">
-        <HeroSection totalPaintings={paintingsList.length} />
+        <HeroSection
+          totalPaintings={paintingsList.filter((p) => !p.sold).length}
+        />
 
         <section className="container mx-auto px-4 py-12">
           <GalleryGrid paintings={paintingsList} />
