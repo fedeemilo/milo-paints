@@ -35,7 +35,7 @@ export default async function PublicGalleryPage() {
           isPublic
         />
 
-        <section className="container mx-auto px-4 py-8 sm:py-10 md:py-12">
+        <section className="container mx-auto px-4 py-10 sm:py-12 md:py-16">
           <GalleryGrid paintings={paintingsList} isPublic />
         </section>
       </main>

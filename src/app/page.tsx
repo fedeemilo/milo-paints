@@ -27,7 +27,7 @@ export default async function HomePage() {
           totalPaintings={paintingsList.filter((p) => !p.sold).length}
         />
 
-        <section className="container mx-auto px-4 py-12">
+        <section className="container mx-auto px-4 py-10 sm:py-12 md:py-16">
           <GalleryGrid paintings={paintingsList} />
         </section>
       </main>

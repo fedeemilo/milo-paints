@@ -7,6 +7,30 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
+## [0.6.4] - 2026-07-22
+
+### 🎨 Improved
+
+- Galería pública (`/galeria` y home): mismo tono minimalista que la ficha QR
+  - Hero más limpio (sin patrón denso ni pill); contador tipográfico
+  - Cards con ring sutil, precio en serif, hover más suave (sin overlay oscuro)
+  - Más aire entre obras
+
+---
+
+## [0.6.3] - 2026-07-22
+
+### 🎨 Improved
+
+- Ficha pública `/qr/[id]`: jerarquía y CTAs más claros
+  - Precio en `font-serif` (misma familia que el título)
+  - Meta (medidas/año) en fila compacta
+  - Un solo botón primario (“Consultar por email”); galería como secundario outline
+  - Sin copy duplicado de “¿Te interesa…?”
+  - Columna de info sticky en desktop; imagen con ring sutil
+
+---
+
 ## [0.6.2] - 2026-07-22
 
 ### 🐛 Fixed

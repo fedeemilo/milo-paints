@@ -72,13 +72,32 @@ Middleware: `src/middleware.ts` — hoy protege `/` y `/admin/*` **solo mirando 
 
 - Server Components por defecto; `"use client"` solo si hace falta.
 - Acceso a datos solo vía `src/lib/mongodb/*` (no queries sueltas en páginas).
-- Imágenes de obras: preferir `object-contain` (no recortar). `object-cover` está vetado para obras en reglas del proyecto; el admin aún tiene deuda con `object-cover` en thumbs.
+- Imágenes de obras: preferir `object-contain` (no recortar). `object-cover` vetado para obras.
 - No dejar `console.log` de debug en prod.
 - Al cerrar un cambio: bump semver en `package.json` + entrada en `CHANGELOG.md` (español).
 - Commits: `tipo: descripción` en español (`feat`, `fix`, `docs`, etc.).
 - No commitear `.env`, CSV de exports, ni credenciales.
 
 Variables de negocio: español (`pintura`, `precio`). Técnicas: inglés (`isLoading`, `formData`).
+
+---
+
+## Diseño visual (público — galería y ficha QR)
+
+Tono: **galería de arte minimalista**, cálido (marrón/`primary` + serif Playfair). No saturar con sombras, pills ni overlays.
+
+### Principios
+
+- **Menos ruido**: hero limpio (sin patrones densos ni badges tipo pill si alcanza un contador tipográfico).
+- **Tipografía**: títulos y **precios** en `font-serif`; cuerpo/meta en sans del sistema.
+- **Jerarquía de CTAs**: un solo botón primario sólido; el resto outline/secundario. Evitar dos marrones compitiendo.
+- **Cards / media**: `rounded-xl` + `ring-1 ring-border/60` (no `shadow-xl` agresivo). Hover suave (`scale` leve, ring a primary); sin overlay oscuro sobre la obra.
+- **Imágenes de obras**: siempre `object-contain` (nunca recortar).
+- **Aire**: más padding/gap entre obras y bloques; ficha QR con columna de info sticky en desktop.
+- **Copy**: corto; no duplicar preguntas (“¿Te interesa…?” una sola vez).
+- **Badge “obras disponibles”**: cuenta solo `!sold`.
+
+Referencias de implementación: `HeroSection`, `PaintingCard`, `src/app/qr/[id]/page.tsx` (refino 0.6.3–0.6.4). El panel admin puede ser más denso/utilitario; el público prioriza calma visual.
 
 ---
 
